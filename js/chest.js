@@ -2,9 +2,9 @@ $(document).ready(function() {
   date = new Date();
   day = date.getDay();
   if(day == 1) {
-    setChest("Chest Day", "It's Chest Day", "Go train Chest!", "arnie");
+    setChest("Chest Day", "It's Chest Day.", "Go train Chest!", "arnie");
   } else {
-    setChest("Not Chest Day", "It's not Chest Day", "Go train an inferior muscle group", "crying");
+    setChest("Not Chest Day", "It's not Chest Day.", "Go train an inferior muscle group.", "crying");
   }
 });
 
