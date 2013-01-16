@@ -1,6 +1,6 @@
 chestday.com
 ============
 
-The website chestday.com
+Wondering whether it's Chest Day? [Find out here](http://chestday.com)
 
-Objective of the site is to inform the user whether or not it is Chest Day. Chest Day is on a Monday.
+The objective of this site is to inform the user whether or not it is Chest Day. Chest Day is on a Monday. Obviously.
