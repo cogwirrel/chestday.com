@@ -1,3 +1,9 @@
 .chest-centre {
   text-align: center;
 }
+
+#chest-img-container {
+  width: 600px;
+  height: 340px;
+  margin: 0 auto;
+}
