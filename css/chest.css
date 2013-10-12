@@ -2,12 +2,14 @@
   text-align: center;
 }
 
-#chest-img-container {
+#chest-img {
   width: 600px;
-  height: 340px;
-  margin: 0 auto;
 }
 
 .copyright {
   color: #777;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
 }

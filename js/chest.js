@@ -18,8 +18,8 @@ $(document).ready(function() {
   date = new Date();
   day = date.getDay();
   if(day == 1) {
-    setChest("Chest Day", "It's Chest Day.", "Go train Chest!", randomImage("yes_", 1, 4));
+    setChest("Chest Day", "It's Chest Day.", "Go train Chest!", randomImage("yes_", 1, 6));
   } else {
-    setChest("Not Chest Day", "It's not Chest Day.", "Go train an inferior muscle group.",  randomImage("no_", 1, 3));
+    setChest("Not Chest Day", "It's not Chest Day.", "Go train an inferior muscle group.",  randomImage("no_", 1, 7));
   }
 });
