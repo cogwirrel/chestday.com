@@ -41,7 +41,12 @@ chestDayFooter = function () {
     "Smash it!",
     "Pump it like Arnold!",
     "Why aren't you under a barbell?!",
-    "Go hard or go home!"
+    "Go hard or go home!",
+    "Train like a beast!",
+    "Why are you still looking at this?!",
+    "Go own the bench!",
+    "Cancel your date.",
+    "Make Arnold proud!"
     ]);
 }
 
@@ -53,6 +58,9 @@ notChestDayFooter = function () {
     "Don't even bother.",
     "Just go home.",
     "Go back to bed.",
-    "What's the point?"
+    "What's the point?",
+    "Bet you're gutted you took your preworkout.",
+    "Guess it's biceps again.",
+    "Hang up your tank."
     ]);
 }
