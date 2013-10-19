@@ -59,7 +59,7 @@ notChestDayFooter = function () {
     "Just go home.",
     "Go back to bed.",
     "What's the point?",
-    "Bet you're gutted you took your preworkout.",
+    "Shouldn't have taken your preworkout.",
     "Guess it's biceps again.",
     "Hang up your tank."
     ]);
