@@ -14,7 +14,7 @@ body {
   font-family: 'Lato', sans-serif;
 }
 
-.twitter-share-button i, .facebook-like-button i {
+.social a i {
 	color: #ccc;
 }
 
@@ -24,4 +24,8 @@ body {
 
 .twitter-share-button i:hover {
 	color: #0084b4;
+}
+
+.github-fork-button i:hover {
+	color: #333;
 }
