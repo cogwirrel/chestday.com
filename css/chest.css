@@ -1,17 +1,17 @@
 .chest-centre {
-  text-align: center;
+	text-align: center;
 }
 
 #chest-img {
-  width: 600px;
+	width: 600px;
 }
 
 .copyright {
-  color: #777;
+	color: #777;
 }
 
 body {
-  font-family: 'Lato', sans-serif;
+	font-family: 'Lato', sans-serif;
 }
 
 .social a i {
@@ -29,3 +29,21 @@ body {
 .github-fork-button i:hover {
 	color: #333;
 }
+
+.youtube-button i:hover {
+	color: #cc181e;
+}
+
+.youtube-button i:hover {
+	/* Make it wiggle */
+	-ms-animation:wiggle .35s infinite;
+	-moz-animation:wiggle .35s infinite;
+	-webkit-animation:wiggle .35s infinite;
+	animation:wiggle .35s infinite;
+}
+
+@-ms-keyframes wiggle{0%{-ms-transform:rotate(8deg);}50%{-ms-transform:rotate(-8deg);}100%{-ms-transform:rotate(8deg);}}
+@-moz-keyframes wiggle{0%{-moz-transform:rotate(8deg);}50%{-moz-transform:rotate(-8deg);}100%{-moz-transform:rotate(8deg);}}
+@-webkit-keyframes wiggle{0%{-webkit-transform:rotate(8deg);}50%{-webkit-transform:rotate(-8deg);}100%{-webkit-transform:rotate(8deg);}}
+@keyframes wiggle{0%{transform:rotate(8deg);}50%{transform:rotate(-8deg);}100%{transform:rotate(8deg);}}
+
