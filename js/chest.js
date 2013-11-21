@@ -31,7 +31,7 @@ addPeakinTrackPlayer = function() {
 	var peakinTrackIcon = "<a href=\"#\" id=\"headphone-button\"><i class=\"fa fa-headphones\"></i></a>";
 	$('#peakin-track-container').html(peakinTrackIcon);
 
-	var peakinTrackPlayer = new PeakinTrackPlayer();
+	window.peakinTrackPlayer = new PeakinTrackPlayer();
 
 	$('#headphone-button').click(function(event) {
 		peakinTrackPlayer.togglePlay();
