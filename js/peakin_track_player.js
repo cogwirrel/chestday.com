@@ -14,25 +14,35 @@ function PeakinTrackPlayer() {
 	this.nextTrackMetadata = {};
 
 	// Pre-cache current track
-	SC.stream("/tracks/" + this.gimmeAPeakinTrack(), function(sound) {
-		that.currentTrack = sound;
-		SC.get("/tracks/" + that.gimmeAPeakinTrack(), function(data) {
-			that.trackMetadata.artist = data.user.username;
-			that.trackMetadata.title = data.title;
-			that.trackMetadata.url = data.permalink_url;
-		});
+	this.cacheTrack(function(track, metadata) {
+		that.currentTrack = track;
+		that.trackMetadata = metadata;
 	});
 
 	// Pre-cache next track
-	SC.stream("/tracks/" + this.gimmeAPeakinTrack(), function(sound) {
-		that.nextTrack = sound;
-		SC.get("/tracks/" + that.gimmeAPeakinTrack(), function(data) {
-			that.nextTrackMetadata.artist = data.user.username;
-			that.nextTrackMetadata.title = data.title;
-			that.nextTrackMetadata.url = data.permalink_url;
-		});
+	this.cacheTrack(function(track, metadata) {
+		that.nextTrack = track;
+		that.nextTrackMetadata = metadata;
 	});
 };
+
+PeakinTrackPlayer.prototype.cacheTrack = function(callback) {
+	var metadata = {};
+	var trackId = this.gimmeAPeakinTrack();
+	var track = {};
+
+	// Pre-cache current track
+	SC.stream("/tracks/" + trackId, function(sound) {
+		track = sound;
+		SC.get("/tracks/" + trackId, function(data) {
+			metadata.artist = data.user.username;
+			metadata.title = data.title;
+			metadata.url = data.permalink_url;
+
+			callback(track, metadata);
+		});
+	});
+}
 
 PeakinTrackPlayer.prototype.togglePlay = function() {
 
@@ -64,23 +74,23 @@ PeakinTrackPlayer.prototype.switchTracks = function() {
 
 	console.log("Switching track...");
 
+	// Stop the current track just in case, then delete it
 	this.currentTrack.stop();
 	delete this.currentTrack;
+
+	// Set the current track to the next track
 	this.currentTrack = this.nextTrack;
 	this.trackMetadata = this.nextTrackMetadata;
 
+	// Play the current track
 	this.playCurrentTrack();
 
 	var that = this;
 
 	// Pre-cache next track
-	SC.stream("/tracks/" + this.gimmeAPeakinTrack(), function(nextSound) {
-		that.nextTrack = nextSound;
-		SC.get("/tracks/" + that.gimmeAPeakinTrack(), function(data) {
-			that.nextTrackMetadata.artist = data.user.username;
-			that.nextTrackMetadata.title = data.title;
-			that.nextTrackMetadata.url = data.permalink_url;
-		});
+	this.cacheTrack(function(track, metadata) {
+		that.nextTrack = track;
+		that.nextTrackMetadata = metadata;
 	});
 }
 
