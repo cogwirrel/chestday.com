@@ -19,17 +19,18 @@ $(document).ready(function() {
 chestDay = function() {
 	setChest("Chest Day", "It's Chest Day.", chestDayFooter(), randomImage("yes_", 1, 6));
 	
-	addPeakinTrack();
+	addPeakinTrackPlayer();
 }
 
 notChestDay = function() {
 	setChest("Not Chest Day", "It's not Chest Day.", notChestDayFooter(),  randomImage("no_", 1, 7));
 }
 
-addPeakinTrack = function() {
+addPeakinTrackPlayer = function() {
 
 	var peakinTrackIcon = "<a href=\"#\" id=\"headphone-button\"><i class=\"fa fa-headphones fa-4x\"></i></a>";
 	$('#peakin-track-container').html(peakinTrackIcon);
+
 	var peakinTrackPlayer = new PeakinTrackPlayer();
 
 	$('#peakin-track-container').click(function(event) {
