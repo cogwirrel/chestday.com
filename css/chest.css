@@ -48,6 +48,15 @@ body {
 	width: 0px;
 }
 
+.peakin-popover-content a {
+	color: #555;
+}
+
+.popover {
+    max-width: 400px;
+    width: auto;
+}
+
 .jiggle {
 	/* Make it wiggle */
 	-ms-animation:wiggle .35s infinite;

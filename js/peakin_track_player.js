@@ -24,6 +24,16 @@ function PeakinTrackPlayer() {
 		that.nextTrack = track;
 		that.nextTrackMetadata = metadata;
 	});
+
+	var soundcloudlogo = "<div  class=\"chest-centre\"><a href=\"http://www.soundcloud.com/\"><img src=\"img/soundcloud.png\"></img></a></div>";
+	var content = "<div class=\"peakin-popover-content\">" + "You're more amped than this player can handle! Try clicking again." + "</div>";
+	$('#headphone-button').popover({
+		placement : 'bottom',
+		title: soundcloudlogo,
+		content: content,
+		html: true,
+		animation: true
+	});
 };
 
 PeakinTrackPlayer.prototype.cacheTrack = function(callback) {
@@ -38,6 +48,7 @@ PeakinTrackPlayer.prototype.cacheTrack = function(callback) {
 			metadata.artist = data.user.username;
 			metadata.title = data.title;
 			metadata.url = data.permalink_url;
+			metadata.artisturl = data.user.permalink_url;
 
 			callback(track, metadata);
 		});
@@ -55,6 +66,9 @@ PeakinTrackPlayer.prototype.togglePlay = function() {
 		// Stop the icon from wiggling
 		$('#headphone-button i').removeClass('red jiggle');
 
+		// Show the popover with track info
+		$('#headphone-button').popover('hide');
+
 		this.playing = false;
 	} else {
 		// Start playing the peakin track!
@@ -64,6 +78,9 @@ PeakinTrackPlayer.prototype.togglePlay = function() {
 
 		// Start wiggling
 		$('#headphone-button i').addClass('red jiggle');
+
+		// Hide the popover with track info
+		$('#headphone-button').popover('show');
 
 		this.playing = true;
 	}
@@ -104,24 +121,30 @@ PeakinTrackPlayer.prototype.playCurrentTrack = function() {
 
 PeakinTrackPlayer.prototype.updateNowPlaying = function() {
 
-	var nowPlaying = "";
-	nowPlaying += "<a href=\"http://www.soundcloud.com/\"><img src=\"img/soundcloud.png\"></img></a>";
-	nowPlaying += "<a href=\"" + this.trackMetadata.url + "\">";
-	nowPlaying += this.trackMetadata.artist;
-	nowPlaying += " - " + this.trackMetadata.title;
-	nowPlaying += "</a>";
+	var track = "<a href=\"" + this.trackMetadata.url + "\">";
+	track += this.trackMetadata.title;
+	track += "</a>";
 
-	$('#peakin-track-now-playing').html(nowPlaying);
+	var artist = "<a href=\"" + this.trackMetadata.artisturl + "\">";
+	artist += this.trackMetadata.artist;
+	artist += "</a>";
+
+	var content = "<div class=\"peakin-popover-content\"><strong>" + artist + "</strong> " + track + "</div>";
+
+	// Update the content to match the currently playing track
+	// Change that persists, but does not update instantly
+	$('#headphone-button').data('popover').options.content = content;
+	// Change that is temporary, but updates instantly
+	$('#headphone-button').data('popover').$tip.find('.popover-content').html(content);
 }
 
 // Return a random soundcloud track id
 PeakinTrackPlayer.prototype.gimmeAPeakinTrack = function() {
 	return randomElement([
-		// "42663926", // Porter Robinson - Language
-		// "4159541", // Survivor - Eye of the Tiger
-		// "24975003", // Hardwell - Cobra
-		// "108140964" // Katy Perry - Roar
-		"77471974", // 2-second test track
-		"65555191" // 10-second test track
+		"42663926", // Porter Robinson - Language
+		"4159541", // Survivor - Eye of the Tiger
+		"108140964" // Katy Perry - Roar
+		// "77471974", // 2-second test track
+		// "65555191" // 10-second test track
 	]);
 }
