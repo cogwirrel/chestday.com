@@ -28,12 +28,12 @@ notChestDay = function() {
 
 addPeakinTrackPlayer = function() {
 
-	var peakinTrackIcon = "<a href=\"#\" id=\"headphone-button\"><i class=\"fa fa-headphones fa-4x\"></i></a>";
+	var peakinTrackIcon = "<a href=\"#\" id=\"headphone-button\"><i class=\"fa fa-headphones\"></i></a>";
 	$('#peakin-track-container').html(peakinTrackIcon);
 
 	var peakinTrackPlayer = new PeakinTrackPlayer();
 
-	$('#peakin-track-container').click(function(event) {
+	$('#headphone-button').click(function(event) {
 		peakinTrackPlayer.togglePlay();
 	});
 	

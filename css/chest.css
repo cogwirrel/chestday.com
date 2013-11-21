@@ -38,6 +38,11 @@ body {
 	color: #cc181e !important;
 }
 
+.peakin-track a i {
+	color: #ccc;
+	font-size: 4em;
+}
+
 #peakin-track-player {
 	height: 0px;
 	width: 0px;
