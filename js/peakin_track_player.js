@@ -104,8 +104,6 @@ PeakinTrackPlayer.prototype.playCurrentTrack = function() {
 
 PeakinTrackPlayer.prototype.updateNowPlaying = function() {
 
-	console.log("update now playing...");
-
 	var nowPlaying = "";
 	nowPlaying += "<a href=\"http://www.soundcloud.com/\"><img src=\"img/soundcloud.png\"></img></a>";
 	nowPlaying += "<a href=\"" + this.trackMetadata.url + "\">";
