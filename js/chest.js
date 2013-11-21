@@ -36,7 +36,6 @@ addPeakinTrack = function() {
 		peakinTrackPlayer.togglePlay();
 	});
 	
-
 }
 
 chestDayFooter = function () {
