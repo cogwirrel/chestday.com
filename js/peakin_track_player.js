@@ -10,14 +10,27 @@ function PeakinTrackPlayer() {
 	// I hate javascript
 	var that = this;
 
+	this.trackMetadata = {};
+	this.nextTrackMetadata = {};
+
 	// Pre-cache current track
 	SC.stream("/tracks/" + this.gimmeAPeakinTrack(), function(sound) {
 		that.currentTrack = sound;
+		SC.get("/tracks/" + that.gimmeAPeakinTrack(), function(data) {
+			that.trackMetadata.artist = data.user.username;
+			that.trackMetadata.title = data.title;
+			that.trackMetadata.url = data.permalink_url;
+		});
 	});
 
 	// Pre-cache next track
 	SC.stream("/tracks/" + this.gimmeAPeakinTrack(), function(sound) {
 		that.nextTrack = sound;
+		SC.get("/tracks/" + that.gimmeAPeakinTrack(), function(data) {
+			that.nextTrackMetadata.artist = data.user.username;
+			that.nextTrackMetadata.title = data.title;
+			that.nextTrackMetadata.url = data.permalink_url;
+		});
 	});
 };
 
@@ -54,6 +67,7 @@ PeakinTrackPlayer.prototype.switchTracks = function() {
 	this.currentTrack.stop();
 	delete this.currentTrack;
 	this.currentTrack = this.nextTrack;
+	this.trackMetadata = this.nextTrackMetadata;
 
 	this.playCurrentTrack();
 
@@ -62,6 +76,11 @@ PeakinTrackPlayer.prototype.switchTracks = function() {
 	// Pre-cache next track
 	SC.stream("/tracks/" + this.gimmeAPeakinTrack(), function(nextSound) {
 		that.nextTrack = nextSound;
+		SC.get("/tracks/" + that.gimmeAPeakinTrack(), function(data) {
+			that.nextTrackMetadata.artist = data.user.username;
+			that.nextTrackMetadata.title = data.title;
+			that.nextTrackMetadata.url = data.permalink_url;
+		});
 	});
 }
 
@@ -70,6 +89,21 @@ PeakinTrackPlayer.prototype.playCurrentTrack = function() {
 	this.currentTrack.play({
 		'onfinish': function() {that.switchTracks();}
 	});
+	this.updateNowPlaying();
+}
+
+PeakinTrackPlayer.prototype.updateNowPlaying = function() {
+
+	console.log("update now playing...");
+
+	var nowPlaying = "";
+	nowPlaying += "<a href=\"http://www.soundcloud.com/\"><img src=\"img/soundcloud.png\"></img></a>";
+	nowPlaying += "<a href=\"" + this.trackMetadata.url + "\">";
+	nowPlaying += this.trackMetadata.artist;
+	nowPlaying += " - " + this.trackMetadata.title;
+	nowPlaying += "</a>";
+
+	$('#peakin-track-now-playing').html(nowPlaying);
 }
 
 // Return a random soundcloud track id
