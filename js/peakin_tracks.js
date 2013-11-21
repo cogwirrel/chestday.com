@@ -1,23 +1,39 @@
-function gimmeAPeakinTrack(playListId, callback) {
+function PeakinTrackPlayer() {
+	this.playerStart = "<div id=\"peakin-track-player\"><iframe width=\"0\" height=\"0\" scrolling=\"no\" frameborder=\"no\" src=\"https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/";
+	this.playerEnd = "&amp;color=cc181e&amp;auto_play=true&amp;show_artwork=false\"></iframe></div>";
+	this.playing = false;
+};
 
-	var playListId = playListId;
-	var videoUrlStart = 'http://www.youtube.com/watch?v=';
-	var tracks = [];
+PeakinTrackPlayer.prototype.togglePlay = function() {
 
-	// Get all of the urls in the playlist
-	var playListUrl = 'http://gdata.youtube.com/feeds/api/playlists/' + playListId + '?v=2&alt=json';
-	
-	$.getJSON(playListUrl, function(data) {
-		$.each(data.feed.entry, function(i, item) {
-			var feedTitle = item.title.$t;
-			var feedUrl = item.link[1].href;
-			var fragments = feedUrl.split("/");
-			var videoId = fragments[fragments.length - 2];
+	if(this.playing) {
+		// Stop the soundcloud player by deleting it
+		$('#peakin-track-player').remove();
 
-			tracks.push(videoId);
-		});
+		// Stop the icon from wiggling
+		$('#headphone-button i').removeClass('red jiggle');
 
-		// Give a random video from the playlist when done
-		callback(videoUrlStart + randomElement(tracks));
-	});
+		this.playing = false;
+	} else {
+		// Start playing the peakin track!
+		var trackId = this.gimmeAPeakinTrack();
+		var player = this.playerStart + trackId + this.playerEnd;
+		$('#peakin-track-container').append(player);
+
+		// Start wiggling
+		$('#headphone-button i').addClass('red jiggle');
+
+		this.playing = true;
+	}
+		
+}
+
+// Return a random soundcloud track id
+PeakinTrackPlayer.prototype.gimmeAPeakinTrack = function() {
+	return randomElement([
+		"42663926", // Porter Robinson - Language
+		"4159541", // Survivor - Eye of the Tiger
+		"24975003", // Hardwell - Cobra
+		"108140964" // Katy Perry - Roar
+	]);
 }

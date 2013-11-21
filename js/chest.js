@@ -27,13 +27,16 @@ notChestDay = function() {
 }
 
 addPeakinTrack = function() {
-	var peakinPlaylistId = "PL_Pvh_CG4yXEyo0Lw2XInC1Iba2N1ird2";
-	gimmeAPeakinTrack(peakinPlaylistId, function(trackUrl) {
 
-		var peakinTrackIcon = "<a href=\"" + trackUrl + "\" class=\"youtube-button\"><i class=\"fa fa-headphones fa-4x\"></i></a>";
+	var peakinTrackIcon = "<a href=\"#\" id=\"headphone-button\"><i class=\"fa fa-headphones fa-4x\"></i></a>";
+	$('#peakin-track-container').html(peakinTrackIcon);
+	var peakinTrackPlayer = new PeakinTrackPlayer();
 
-		$('#peakin-track-container').html(peakinTrackIcon);
+	$('#peakin-track-container').click(function(event) {
+		peakinTrackPlayer.togglePlay();
 	});
+	
+
 }
 
 chestDayFooter = function () {

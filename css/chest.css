@@ -30,11 +30,20 @@ body {
 	color: #333;
 }
 
-.youtube-button i:hover {
+#headphone-button i:hover {
 	color: #cc181e;
 }
 
-.youtube-button i:hover {
+.red {
+	color: #cc181e !important;
+}
+
+#peakin-track-player {
+	height: 0px;
+	width: 0px;
+}
+
+.jiggle {
 	/* Make it wiggle */
 	-ms-animation:wiggle .35s infinite;
 	-moz-animation:wiggle .35s infinite;
