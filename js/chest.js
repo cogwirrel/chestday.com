@@ -56,7 +56,10 @@ chestDayFooter = function () {
 	"Why are you still looking at this?!",
 	"Go own the bench!",
 	"Cancel your date.",
-	"Make Arnold proud!"
+	"Make Arnold proud!",
+	"Get pumped with a peakin' track!",
+	"Pshych yourself up with the headphones!",
+	"Get amped with the headphones below!"
 	]);
 }
 
