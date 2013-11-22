@@ -143,6 +143,7 @@ PeakinTrackPlayer.prototype.gimmeAPeakinTrack = function() {
 	return randomElement([
 		"42663926", // Porter Robinson - Language
 		"4159541", // Survivor - Eye of the Tiger
+		"53045153", // Madeon - Finale
 		"108140964" // Katy Perry - Roar
 		// "77471974", // 2-second test track
 		// "65555191" // 10-second test track
