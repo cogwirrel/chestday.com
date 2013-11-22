@@ -58,7 +58,7 @@ chestDayFooter = function () {
 	"Cancel your date.",
 	"Make Arnold proud!",
 	"Get pumped with a peakin' track!",
-	"Pshych yourself up with the headphones!",
+	"Psych yourself up with the headphones!",
 	"Get amped with the headphones below!"
 	]);
 }
