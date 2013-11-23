@@ -163,6 +163,7 @@ PeakinTrackPlayer.prototype.gimmeAPeakinTrack = function() {
 		"13719168", // Shogun - Skyfire
 		"31027910", // Michael Calfan - Resurrection
 		"23142795", // Avicii - Levels
+		"44820594", // Nadia Ali - Believe it
 		"37492984" // DJ KUBA & NE!TAN - Take it to the Top
 		// "77471974", // 2-second test track
 		// "65555191" // 10-second test track
