@@ -152,7 +152,11 @@ PeakinTrackPlayer.prototype.gimmeAPeakinTrack = function() {
 		"42663926", // Porter Robinson - Language
 		"4159541", // Survivor - Eye of the Tiger
 		"53045153", // Madeon - Finale
-		"108140964" // Katy Perry - Roar
+		"108140964", // Katy Perry - Roar
+		"60198939", // Sub Focus - Tidal Wave
+		"54833549", // Alesso - Years
+		"44509875", // Rudimental - Feel the Love
+		"37492984" // DJ KUBA & NE!TAN - Take it to the Top
 		// "77471974", // 2-second test track
 		// "65555191" // 10-second test track
 	]);
