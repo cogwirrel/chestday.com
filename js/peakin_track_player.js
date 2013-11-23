@@ -167,9 +167,14 @@ PeakinTrackPlayer.prototype.skip = function() {
 
 PeakinTrackPlayer.prototype.rockOut = function() {
 	console.log("Rocking out in 1 minute!");
+	var that = this;
 	this.rockOutTimeOut = window.setTimeout(function() {
-		$('.jigglable').addClass('jiggle');
+		that.rockOutNow();
 	}, this.rockOutDelay);
+}
+
+PeakinTrackPlayer.prototype.rockOutNow = function() {
+	$('.jigglable').addClass('jiggle');
 }
 
 PeakinTrackPlayer.prototype.stopRockOut = function() {
