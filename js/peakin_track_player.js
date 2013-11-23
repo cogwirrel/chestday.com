@@ -25,14 +25,15 @@ function PeakinTrackPlayer() {
 		that.nextTrackMetadata = metadata;
 	});
 
-	var soundcloudlogo = "<div  class=\"chest-centre\"><a href=\"http://www.soundcloud.com/\"><img src=\"img/soundcloud.png\"></img></a></div>";
+	var soundcloudlogo = "<span id=\"soundcloud-logo\" class=\"chest-centre\"><a href=\"http://www.soundcloud.com/\"><img src=\"img/soundcloud.png\"></img></a></span>";
+	var skip = "<span id=\"peakin-skip\"><a id=\"peakin-skip-button\" onclick=\"peakinTrackPlayer.skip();\" href=\"javascript:void(0);\"><i class=\"fa fa-chevron-right\"></i></a></span>"
 	var content = "<div class=\"peakin-popover-content\">" + "You're more amped than this player can handle! Try clicking again." + "</div>";
 	$('#headphone-button').popover({
 		placement : 'bottom',
-		title: soundcloudlogo,
+		title: "<div class=\"peakin-popover-title\">" + soundcloudlogo + skip + "</div>",
 		content: content,
 		html: true,
-		animation: true
+		animation: false
 	});
 };
 
@@ -91,8 +92,9 @@ PeakinTrackPlayer.prototype.switchTracks = function() {
 
 	console.log("Switching track...");
 
-	// Stop the current track just in case, then delete it
+	// Stop the current track, stop streaming, then delete it
 	this.currentTrack.stop();
+	this.currentTrack.unload();
 	delete this.currentTrack;
 
 	// Set the current track to the next track
@@ -129,13 +131,19 @@ PeakinTrackPlayer.prototype.updateNowPlaying = function() {
 	artist += this.trackMetadata.artist;
 	artist += "</a>";
 
-	var content = "<div class=\"peakin-popover-content\"><strong>" + artist + "</strong> " + track + "</div>";
+	var content = "<div class=\"peakin-popover-content\"><div><strong>" + artist + "</strong></div><div>" + track + "</div></div>";
+
+	var popover = $('#headphone-button').data('popover');
 
 	// Update the content to match the currently playing track
 	// Change that persists, but does not update instantly
-	$('#headphone-button').data('popover').options.content = content;
+	popover.options.content = content;
 	// Change that is temporary, but updates instantly
-	$('#headphone-button').data('popover').$tip.find('.popover-content').html(content);
+	popover.$tip.find('.popover-content').html(content);
+}
+
+PeakinTrackPlayer.prototype.skip = function() {
+	this.switchTracks();
 }
 
 // Return a random soundcloud track id

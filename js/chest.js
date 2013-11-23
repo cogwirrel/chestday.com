@@ -31,6 +31,7 @@ addPeakinTrackPlayer = function() {
 	var peakinTrackIcon = "<a href=\"javascript:void(0);\" id=\"headphone-button\"><i class=\"fa fa-headphones\"></i></a>";
 	$('#peakin-track-container').html(peakinTrackIcon);
 
+	// Attach peakinTrackPlayer to window ( skip button uses this global reference :/ )
 	window.peakinTrackPlayer = new PeakinTrackPlayer();
 
 	$('#headphone-button').click(function(event) {

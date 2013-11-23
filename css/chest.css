@@ -38,6 +38,13 @@ body {
 	color: #cc181e !important;
 }
 
+#peakin-track-container {
+	width: 4em;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+}
+
 .peakin-track a i {
 	color: #ccc;
 	font-size: 4em;
@@ -48,13 +55,31 @@ body {
 	width: 0px;
 }
 
+.peakin-popover-content {
+	text-align: center;
+}
+
 .peakin-popover-content a {
 	color: #555;
 }
 
+.peakin-popover-title {
+	height: 14px;
+}
+
+#peakin-skip a i {
+	font-size: 1em;
+	float: right;
+	color: #777;
+}
+
+#soundcloud-logo {
+	float: left;
+	margin-top: -4px;
+}
+
 .popover {
-    max-width: 400px;
-    width: auto;
+    width: 250px;
 }
 
 .jiggle {
