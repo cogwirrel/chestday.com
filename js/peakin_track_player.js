@@ -7,6 +7,15 @@ function PeakinTrackPlayer() {
 
 	this.playing = false;
 
+	// Number of tracks we've played since we last rocked out!
+	this.trackCount = 0;
+	// Number of tracks we've skipped since we last rocked out!
+	this.skipCount = 0;
+	// Number of tracks fully listened to before we engage the rock out!
+	this.ROCKOUTNUMBER = 5;
+	// Delay before rocking out after ROCKOUTNUMBER tracks
+	this.rockOutDelay = 60000;
+
 	// I hate javascript
 	var that = this;
 
@@ -33,7 +42,8 @@ function PeakinTrackPlayer() {
 		title: "<div class=\"peakin-popover-title\">" + soundcloudlogo + skip + "</div>",
 		content: content,
 		html: true,
-		animation: false
+		animation: true,
+		template: '<div class="popover jigglable"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
 	});
 };
 
@@ -67,6 +77,9 @@ PeakinTrackPlayer.prototype.togglePlay = function() {
 		// Stop the icon from wiggling
 		$('#headphone-button i').removeClass('red jiggle');
 
+		// Cancel any rocking out
+		this.stopRockOut();
+
 		// Show the popover with track info
 		$('#headphone-button').popover('hide');
 
@@ -90,7 +103,12 @@ PeakinTrackPlayer.prototype.togglePlay = function() {
 
 PeakinTrackPlayer.prototype.switchTracks = function() {
 
-	console.log("Switching track...");
+	this.trackCount++;
+
+	if(this.trackCount - this.skipCount == this.ROCKOUTNUMBER)
+	{
+		this.rockOut();
+	}
 
 	// Stop the current track, stop streaming, then delete it
 	this.currentTrack.stop();
@@ -143,7 +161,22 @@ PeakinTrackPlayer.prototype.updateNowPlaying = function() {
 }
 
 PeakinTrackPlayer.prototype.skip = function() {
+	this.skipCount++;
 	this.switchTracks();
+}
+
+PeakinTrackPlayer.prototype.rockOut = function() {
+	console.log("Rocking out in 1 minute!");
+	this.rockOutTimeOut = window.setTimeout(function() {
+		$('.jigglable').addClass('jiggle');
+	}, this.rockOutDelay);
+}
+
+PeakinTrackPlayer.prototype.stopRockOut = function() {
+	$('.jigglable').removeClass('jiggle');
+	window.clearTimeout(this.rockOutTimeOut);
+	this.trackCount = 0;
+	this.skipCount = 0;
 }
 
 // Return a random soundcloud track id
