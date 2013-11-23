@@ -153,9 +153,16 @@ PeakinTrackPlayer.prototype.gimmeAPeakinTrack = function() {
 		"4159541", // Survivor - Eye of the Tiger
 		"53045153", // Madeon - Finale
 		"108140964", // Katy Perry - Roar
-		"60198939", // Sub Focus - Tidal Wave
+		"106483833", // Sub Focus - Tidal Wave
 		"54833549", // Alesso - Years
 		"44509875", // Rudimental - Feel the Love
+		"97617992", // Avicii - Wake me up
+		"63726365", // Overwerk - Daybreak
+		"40781265", // Savant - Living iPod
+		"45784550", // Savant - Splinter
+		"13719168", // Shogun - Skyfire
+		"31027910", // Michael Calfan - Resurrection
+		"23142795", // Avicii - Levels
 		"37492984" // DJ KUBA & NE!TAN - Take it to the Top
 		// "77471974", // 2-second test track
 		// "65555191" // 10-second test track
