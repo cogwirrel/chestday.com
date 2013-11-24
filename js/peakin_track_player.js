@@ -195,7 +195,6 @@ PeakinTrackPlayer.prototype.gimmeAPeakinTrack = function() {
 		"37889463", // Madeon - Icarus
 		"3911205", // Madeon - Shuriken
 		"108140964", // Katy Perry - Roar
-		"106483833", // Sub Focus - Tidal Wave
 		"54833549", // Alesso - Years
 		"44509875", // Rudimental - Feel the Love
 		"97617992", // Avicii - Wake me up
