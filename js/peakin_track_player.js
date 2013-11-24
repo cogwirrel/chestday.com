@@ -16,6 +16,8 @@ function PeakinTrackPlayer() {
 	// Delay before rocking out after ROCKOUTNUMBER tracks
 	this.rockOutDelay = 60000;
 
+	this.peakinTracks = [];
+
 	// I hate javascript
 	var that = this;
 
@@ -186,7 +188,23 @@ PeakinTrackPlayer.prototype.stopRockOut = function() {
 
 // Return a random soundcloud track id
 PeakinTrackPlayer.prototype.gimmeAPeakinTrack = function() {
-	return randomElement([
+	// Refresh our list if we've run out of tracks
+	if(this.peakinTracks.length == 0) {
+		this.peakinTracks = this.getPeakinTracks();
+	}
+
+	// Pick a random track
+	var track = randomElement(this.peakinTracks);
+
+	// Remove it so we don't get it again (until we've run out)
+	var index = this.peakinTracks.indexOf(track);
+	this.peakinTracks.splice(index, 1);
+
+	return track;
+}
+
+PeakinTrackPlayer.prototype.getPeakinTracks = function() {
+	return [
 		"42663926", // Porter Robinson - Language
 		"4159541", // Survivor - Eye of the Tiger
 		"53045153", // Madeon - Finale
@@ -215,5 +233,5 @@ PeakinTrackPlayer.prototype.gimmeAPeakinTrack = function() {
 		"37492984" // DJ KUBA & NE!TAN - Take it to the Top
 		// "77471974", // 2-second test track
 		// "65555191" // 10-second test track
-	]);
+	];
 }
