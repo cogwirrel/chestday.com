@@ -15,6 +15,7 @@ function PeakinTrackPlayer() {
 	this.ROCKOUTNUMBER = 5;
 	// Delay before rocking out after ROCKOUTNUMBER tracks
 	this.rockOutDelay = 60000;
+	this.isRockingOut = false;
 
 	this.peakinTracks = [];
 
@@ -105,10 +106,13 @@ PeakinTrackPlayer.prototype.togglePlay = function() {
 
 PeakinTrackPlayer.prototype.switchTracks = function() {
 
+	if(this.isRockingOut) {
+		this.stopRockOut();
+	}
+
 	this.trackCount++;
 
-	if(this.trackCount - this.skipCount == this.ROCKOUTNUMBER)
-	{
+	if(this.trackCount - this.skipCount == this.ROCKOUTNUMBER) {
 		this.rockOut();
 	}
 
@@ -176,6 +180,7 @@ PeakinTrackPlayer.prototype.rockOut = function() {
 }
 
 PeakinTrackPlayer.prototype.rockOutNow = function() {
+	this.isRockingOut = true;
 	$('.jigglable').addClass('jiggle');
 }
 
@@ -184,6 +189,7 @@ PeakinTrackPlayer.prototype.stopRockOut = function() {
 	window.clearTimeout(this.rockOutTimeOut);
 	this.trackCount = 0;
 	this.skipCount = 0;
+	this.isRockingOut = false;
 }
 
 // Return a random soundcloud track id
