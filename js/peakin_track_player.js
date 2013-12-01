@@ -232,6 +232,7 @@ PeakinTrackPlayer.prototype.getPeakinTracks = function() {
 		"50795768", // Alesso - Titanium
 		"6058181", // Pendulum - The Island (Madeon Remix)
 		"55945671", // Swedish House Mafia - Don't you worry child
+		"48124146", // Swedish House Mafia - Greyhound
 		"26685551", // Avicii & Tiesto - Escape Me
 		"59811918", // Shinedown - Unity (Matisse & Sadko Remix)
 		"67439229", // Alexo - 3am
