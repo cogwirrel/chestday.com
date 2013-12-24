@@ -29,6 +29,7 @@ notChestDay = function() {
 
 christmasDay = function() {
 	setChest("Christmas Day", "It's Christmas Day!", christmasFooter(), randomImage("christmas_", 1, 3));
+	$.fn.snow({newOn: 50});
 }
 
 addPeakinTrackPlayer = function() {
