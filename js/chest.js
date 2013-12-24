@@ -7,9 +7,10 @@ setChest = function (title, header, footer, img) {
 
 $(document).ready(function() {
 	date = new Date();
-	day = date.getDay();
 
-	if(day == 1) {
+	if(date.getDate() == 25 && date.getMonth() == 11) {
+		christmasDay();
+	} else if(date.getDay() == 1) {
 		chestDay();
 	} else {
 		notChestDay();
@@ -24,6 +25,10 @@ chestDay = function() {
 
 notChestDay = function() {
 	setChest("Not Chest Day", "It's not Chest Day.", notChestDayFooter(),  randomImage("no_", 1, 7));
+}
+
+christmasDay = function() {
+	setChest("Christmas Day", "It's Christmas Day!", christmasFooter(), randomImage("christmas_", 1, 3));
 }
 
 addPeakinTrackPlayer = function() {
@@ -76,5 +81,13 @@ notChestDayFooter = function () {
 	"Shouldn't have taken your preworkout.",
 	"Guess it's biceps again.",
 	"Hang up your tank."
+	]);
+}
+
+christmasFooter = function() {
+	return randomElement([
+		"Do you even gift?",
+		"I hope you got a bench for Christmas this year.",
+		"Christmas dinner hits all your macros."
 	]);
 }
