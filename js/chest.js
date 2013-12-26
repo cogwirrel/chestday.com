@@ -10,7 +10,7 @@ $(document).ready(function() {
 
 	if(date.getDate() == 25 && date.getMonth() == 11) {
 		christmasDay();
-	} else if(date.getDay() == 4) {
+	} else if(date.getDay() == 1) {
 		chestDay();
 	} else {
 		notChestDay();
