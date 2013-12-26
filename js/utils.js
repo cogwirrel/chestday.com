@@ -11,3 +11,8 @@ random = function (lower, upper) {
 randomElement = function (array) {
   return array[ random(0, array.length - 1) ];
 }
+
+/* Returns whether an object is defined */
+isDefined = function(obj) {
+	return !(typeof obj === "undefined");
+}
