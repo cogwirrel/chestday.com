@@ -213,5 +213,6 @@ PeakinTrackPlayer.prototype.gimmeAPeakinTrack = function() {
 }
 
 PeakinTrackPlayer.prototype.getPeakinTracks = function() {
-	return this.tracks;
+	// Return a clone of the tracks array
+	return this.tracks.slice(0);
 }
