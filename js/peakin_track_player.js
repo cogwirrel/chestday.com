@@ -1,9 +1,12 @@
-function PeakinTrackPlayer() {
+function PeakinTrackPlayer(tracks) {
 
 	// Initialise soundcloud api
 	SC.initialize({
 		client_id: '8eaeb95d4bf84d06f0001a18f55695a2'
 	});
+
+	// Provided list of soundcloud ids
+	this.tracks = tracks;
 
 	this.playing = false;
 
@@ -210,35 +213,5 @@ PeakinTrackPlayer.prototype.gimmeAPeakinTrack = function() {
 }
 
 PeakinTrackPlayer.prototype.getPeakinTracks = function() {
-	return [
-		"42663926", // Porter Robinson - Language
-		"4159541", // Survivor - Eye of the Tiger
-		"53045153", // Madeon - Finale
-		"103719057", // Madeon - Technicolour
-		"57893809", // Madeon - The City
-		"37889463", // Madeon - Icarus
-		"3911205", // Madeon - Shuriken
-		"108140964", // Katy Perry - Roar
-		"54833549", // Alesso - Years
-		"44509875", // Rudimental - Feel the Love
-		"97617992", // Avicii - Wake me up
-		"63726365", // Overwerk - Daybreak
-		"40781265", // Savant - Living iPod
-		"45784550", // Savant - Splinter
-		"13719168", // Shogun - Skyfire
-		"31027910", // Michael Calfan - Resurrection
-		"23142795", // Avicii - Levels
-		"44820594", // Nadia Ali - Believe it
-		"50795768", // Alesso - Titanium
-		"6058181", // Pendulum - The Island (Madeon Remix)
-		"55945671", // Swedish House Mafia - Don't you worry child
-		"48124146", // Swedish House Mafia - Greyhound
-		"26685551", // Avicii & Tiesto - Escape Me
-		"59811918", // Shinedown - Unity (Matisse & Sadko Remix)
-		"67439229", // Alexo - 3am
-		"92373892", // Sebastian Ingrosso & Tommy Trash - Reload
-		"37492984" // DJ KUBA & NE!TAN - Take it to the Top
-		// "77471974", // 2-second test track
-		// "65555191" // 10-second test track
-	];
+	return this.tracks;
 }
