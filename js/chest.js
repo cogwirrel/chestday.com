@@ -30,8 +30,11 @@ var days = [
 		],
 
 		special: function() {
-			// Make it snow!
-			$.fn.snow({newOn: 50});
+			// Dynamically load jquery snow plugin (because we don't want it 364 days of the year...)
+			$.getScript("js/jquery.snow.min.js", function() {
+				// Make it snow!
+				$.fn.snow({newOn: 50});
+			});
 		}
 	},
 
