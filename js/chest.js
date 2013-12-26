@@ -60,6 +60,12 @@ notChestDay = function() {
 christmasDay = function() {
 	setChest("Christmas Day", "It's Christmas Day!", christmasFooter(), randomImage("christmas_", 1, 3));
 	$.fn.snow({newOn: 50});
+
+	addPeakinTrackPlayer([
+		"62682267", // Michael Buble - It's beginning to look a lot like Christmas
+		"7863745", // Mariah Kerry - All I want for Christmas is you
+		"30815767" // Brenda Lee - Rockin' around the Christmas tree
+	]);
 }
 
 addPeakinTrackPlayer = function(tracks) {
