@@ -26,7 +26,7 @@
 									flakeHtml	: function() {return '&#10052;'},
 								},
 				options			= $.extend({}, defaults, options),
-				$flake 			= $('<div id="flake" />').css({'position': 'absolute', 'top': '-50px'}),
+				$flake 			= $('<div id="flake" class="jiggle" />').css({'position': 'absolute', 'top': '-50px'}),
 				documentHeight 	= $(document).height(),
 				documentWidth	= $(document).width();
 			
