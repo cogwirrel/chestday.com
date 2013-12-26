@@ -129,7 +129,8 @@ var days = [
 			"67439229", // Alexo - 3am
 			"92373892", // Sebastian Ingrosso & Tommy Trash - Reload
 			"37492984", // DJ KUBA & NE!TAN - Take it to the Top
-			"105455292" // PIXL - Sugar Rush
+			"105455292", // PIXL - Sugar Rush
+			"98081145" // Martin Garrix - Animals
 			// "77471974", // 2-second test track
 			// "65555191" // 10-second test track
 		]
