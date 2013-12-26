@@ -31,9 +31,43 @@ var days = [
 
 		special: function() {
 			// Dynamically load jquery snow plugin (because we don't want it 364 days of the year...)
-			$.getScript("js/jquery.snow.min.js", function() {
+			$.getScript("js/jquery.snow.js", function() {
 				// Make it snow!
 				$.fn.snow({newOn: 50});
+			});
+		}
+	},
+
+	{
+		title: "Arnold's Birthday",
+		isToday: function(date) {
+			// 30th July
+			return date.getDate() == 30 && date.getMonth() == 6;
+		},
+		headers: ["It's Arnold's Birthday!"],
+		footers: [
+			"Happy Birthday Arnold!",
+			"Train chest to wish Arnold many happy returns.",
+			"Today is an honorary chest day."
+		],
+		imagePrefix: "birthday_",
+		numImages: 3,
+		tracks: [
+			"45001128" // Queen - We are the champions
+		],
+		special: function() {
+			$.getScript("js/jquery.snow.js", function() {
+				// Confetti!
+				$.fn.snow({
+					newOn: 100,
+					flakeHtml: function() {
+						// ★ ◼ ■ ◾ ● ▲ ▶ ◀ ◆ ▰
+						return randomElement(["&#9733;","&#9724;","&#9632;","&#9726;","&#9679;","&#9650;","&#9654;","&#9664;","&#9670;","&#9648;"]);
+					},
+					flakeColor: function() {
+						return '#' + Math.random().toString(16).substring(2, 8);
+					}
+				});
 			});
 		}
 	},
