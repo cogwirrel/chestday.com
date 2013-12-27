@@ -113,6 +113,7 @@ var days = [
 			"54833549", // Alesso - Years
 			"44509875", // Rudimental - Feel the Love
 			"97617992", // Avicii - Wake me up
+			"113161136", // Avicii - Hey Brother
 			"63726365", // Overwerk - Daybreak
 			"40781265", // Savant - Living iPod
 			"45784550", // Savant - Splinter
