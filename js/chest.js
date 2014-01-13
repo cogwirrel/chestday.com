@@ -133,6 +133,11 @@ var days = [
 			"105455292", // PIXL - Sugar Rush
 			"98081145", // Martin Garrix - Animals
 			"112609088", // Klangkarussel - Sonnentanz (Sun Don't Shine)
+			"102875042", // Ellie Goulding & Tiesto - Burn
+			"102286007", // Showtek - Booyah
+			"75027559", // Lana Del Rey & Cedric Gervais - Summertime Sadness
+			"116098730", // Matrix & Futurebound - Control
+			"128147532", // Hardwell - Dare You
 			"106914652" // DVBBS & Borgeous - Tsunami
 			// "77471974", // 2-second test track
 			// "65555191" // 10-second test track
