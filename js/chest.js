@@ -132,6 +132,7 @@ var days = [
 			"37492984", // DJ KUBA & NE!TAN - Take it to the Top
 			"105455292", // PIXL - Sugar Rush
 			"98081145", // Martin Garrix - Animals
+			"112609088", // Klangkarussel - Sonnentanz (Sun Don't Shine)
 			"106914652" // DVBBS & Borgeous - Tsunami
 			// "77471974", // 2-second test track
 			// "65555191" // 10-second test track
