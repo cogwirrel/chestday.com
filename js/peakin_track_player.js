@@ -228,6 +228,7 @@ PeakinTrackPlayer.prototype.getPeakinTracks = function() {
 }
 
 PeakinTrackPlayer.prototype.skipToDrop = function() {
+	// Skip to the location where a drop has been detected
 	var that = this;
 	this.findDrop(this.trackMetadata, function(drop) {
 		that.currentTrack.setPosition(drop);
@@ -236,41 +237,70 @@ PeakinTrackPlayer.prototype.skipToDrop = function() {
 }
 
 PeakinTrackPlayer.prototype.findDrop = function(trackMetadata, callback) {
+	// Create a Waveform, note that container isn't actually used as I modified waveform.js
+	// - we don't care about displaying the waveform, we just want to find the drop!
 	var wav = new Waveform({
 		container: document.getElementById("waveform")
 	});
 
+	var that = this;
+
+	// Request the waveform data from soundcloud servers
 	wav.dataFromSoundCloudTrack(trackMetadata.track, function(waveform) {
-		var duration = trackMetadata.track.duration;
+		
+		// Obtain the number of milliseconds each waveform entry accounts for in the track
+		var millisPerWaveformChunk = trackMetadata.track.duration / waveform.data.length;
 
 		var data = waveform.data;
+		
+		// The number of waveform chunks to look at at once
 		var n = 20;
+
+		// The difference required to count as a drop (between 0 and 1)
 		var threshold = 0.08;
+
+		// A difference less than this means levels are 'similar'
 		var similarityThreshold = 0.03;
+
+		// The index of the drop in the waveform data
 		var drop = 0;
+
+		// The index of the backup drop in the waveform data
 		var backupDrop = 0;
+
 		var foundBackupDrop = false;
-		for(var i = 0; i < data.length - 3*n; i++) {
+
+		// We start from the position in the waveform corresponding to our current position (millis) in the track
+		var startIndex = Math.ceil(that.currentTrack.position / millisPerWaveformChunk);
+
+		// Loop through the waveform
+		for(var i = startIndex; i < data.length - 3*n; i++) {
+			// Obtain three chunks of length n from i and average the waveform values
+			// Essentially we're downsampling here
 			var prev = data.slice(i, i+n).average();
 			var current = data.slice(i+n, i+2*n).average();
 			var next = data.slice(i+2*n, i+3*n).average();
 
-			if(current - prev > threshold && !foundBackupDrop) {
-				backupDrop = i;
-				foundBackupDrop = true;
-			}
-
+			// Find an 'up down up' drop
 			if(next - current > threshold && Math.abs(next - prev) < similarityThreshold) {
 				drop = i;
 				break;
 			}
+
+			// Find a 'down up' drop - less preferable
+			if(current - prev > threshold && !foundBackupDrop) {
+				backupDrop = i;
+				foundBackupDrop = true;
+			}
 		}
 
+		// If we haven't found an 'up down up' drop, use the 'down up' drop
 		if(drop == 0) {
 			drop = backupDrop;
 		}
 
-		var dropMilliseconds = (duration / waveform.data.length) * drop;
+		// The position in the track corresponding to the index at which we found the drop
+		var dropMilliseconds = millisPerWaveformChunk * drop;
 
 		callback(dropMilliseconds);
 	});
