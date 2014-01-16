@@ -118,7 +118,6 @@ var days = [
 			"40781265", // Savant - Living iPod
 			"45784550", // Savant - Splinter
 			"13719168", // Shogun - Skyfire
-			"31027910", // Michael Calfan - Resurrection
 			"23142795", // Avicii - Levels
 			"44820594", // Nadia Ali - Believe it
 			"50795768", // Alesso - Titanium
@@ -132,10 +131,10 @@ var days = [
 			"37492984", // DJ KUBA & NE!TAN - Take it to the Top
 			"105455292", // PIXL - Sugar Rush
 			"98081145", // Martin Garrix - Animals
-			"112609088", // Klangkarussel - Sonnentanz (Sun Don't Shine)
 			"102286007", // Showtek - Booyah
 			"75027559", // Lana Del Rey & Cedric Gervais - Summertime Sadness
 			"128147532", // Hardwell - Dare You
+			"5199527", // W&W Alpha
 			"106914652" // DVBBS & Borgeous - Tsunami
 			// "77471974", // 2-second test track
 			// "65555191" // 10-second test track

@@ -73,6 +73,32 @@ body {
 	color: #777;
 }
 
+#peakin-skiptodrop {
+	margin-bottom: 0px;
+	padding: 4px;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+}
+
+#peakin-skiptodrop a {
+	color: #cc181e;
+	text-decoration: none;
+}
+
+#peakin-skiptodrop a i {
+	font-size: 1em;
+	color: #cc181e;
+}
+
+#skiptodrop-text {
+	font-size: 1.2em;
+}
+
+#waveform {
+	visibility: hidden;
+}
+
 #soundcloud-logo {
 	float: left;
 	margin-top: -4px;

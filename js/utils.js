@@ -16,3 +16,31 @@ randomElement = function (array) {
 isDefined = function(obj) {
 	return !(typeof obj === "undefined");
 }
+
+Array.prototype.max = function() {
+  return Math.max.apply(null, this);
+};
+
+Array.prototype.min = function() {
+  return Math.min.apply(null, this);
+};
+
+Array.prototype.maxIndex = function() {
+	var max = -Infinity;
+	var maxIndex = 0;
+	for(var i = 0; i < this.length; i++) {
+		if(this[i] > max) {
+			max = this[i];
+			maxIndex = i;
+		}
+	}
+	return maxIndex;
+}
+
+Array.prototype.average = function() {
+	var total = 0;
+	for(var i = 0; i < this.length; i++) {
+		total += this[i];
+	}
+	return total / this.length;
+}
