@@ -208,3 +208,12 @@ addPeakinTrackPlayer = function(tracks) {
 	});
 	
 }
+
+// Just so people can change it to chest day in the console to listen to the tuuunes :)
+chestDay = function() {
+	for(var i = 0; i < days.length; i++) {
+		if(days[i].title == "Chest Day") {
+			setDay(days[i]);
+		}
+	}
+}
