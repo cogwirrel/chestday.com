@@ -88,7 +88,7 @@ var days = [
 			"You should be under a barbell right now.",
 			"Time to pump iron!",
 			"Smash it!",
-			"Pump it like Arnold!",
+			"Pump iron like Arnold!",
 			"Why aren't you under a barbell?!",
 			"Go hard or go home!",
 			"Train like a beast!",
