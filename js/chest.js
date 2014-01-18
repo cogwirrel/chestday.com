@@ -48,7 +48,8 @@ var days = [
 		footers: [
 			"Happy Birthday Arnold!",
 			"Train chest to wish Arnold many happy returns.",
-			"Today is an honorary chest day."
+			"Today is an honorary chest day.",
+			"Arnold's training chest all day, so should you."
 		],
 		imagePrefix: "birthday_",
 		numImages: 3,
