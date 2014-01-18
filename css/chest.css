@@ -108,6 +108,10 @@ body {
     width: 250px;
 }
 
+.tooltip {
+	position: fixed;
+}
+
 .jiggle {
 	/* Make it wiggle */
 	-ms-animation:wiggle .35s infinite;
