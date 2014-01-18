@@ -52,7 +52,7 @@ var days = [
 			"Arnold's training chest all day, so should you."
 		],
 		imagePrefix: "birthday_",
-		numImages: 3,
+		numImages: 4,
 		tracks: [
 			"45001128" // Queen - We are the champions
 		],
