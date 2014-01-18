@@ -14,6 +14,15 @@ body {
 	font-family: 'Lato', sans-serif;
 }
 
+.indent {
+	background-color: #000;
+	-webkit-background-clip: text;
+	-moz-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	text-shadow: rgba(255,255,255,0.5) 0px 1px 1px;
+}
+
 .social a i {
 	color: #ccc;
 }
@@ -110,6 +119,10 @@ body {
 
 .tooltip {
 	position: fixed;
+}
+
+.well-flat {
+	border-radius: 0px;
 }
 
 .jiggle {
