@@ -78,7 +78,7 @@ var days = [
 		isToday: function(date) {
 			return date.getDay() == 1;
 		},
-		headers: ["It's Chest Day."],
+		headers: ["It's Chest Day"],
 		footers: [
 			"Go train chest!",
 			"What are you waiting for?!",
@@ -149,7 +149,7 @@ var days = [
 		isToday: function(date) {
 			return date.getDay() != 1;
 		},
-		headers: ["It's not Chest Day."],
+		headers: ["It's not Chest Day"],
 		footers: [
 			"Go train an inferior muscle group.",
 			"Maybe train legs? ...Nah",
