@@ -12,10 +12,38 @@
 
 body {
 	font-family: 'Lato', sans-serif;
+	background-image: url('/img/texture_white.png');
+	color: #ccc;
+}
+
+.indent {
+	background-color: #000;
+	-webkit-background-clip: text;
+	-moz-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	text-shadow: rgba(255,255,255,0.5) 0px 1px 1px;
+}
+
+.separator {
+	height: 5px;
+	background-color: #999;
+	/*background-color: #009BCD;*/
+	margin-top: 4px;
+	margin-bottom: 4px;
+	margin-right: 100px;
+	margin-left: 100px;
+	box-shadow: inset 0 0 5px #000000;
+	border-radius: 3px;
+}
+
+#chest-img-container {
+	padding: 19px;
+	/*box-shadow: inset 0 5px 5px rgba(0,0,0,0.05);*/
 }
 
 .social a i {
-	color: #ccc;
+	color: #999;
 }
 
 .facebook-like-button i:hover {
