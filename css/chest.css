@@ -66,10 +66,15 @@ body {
 
 .peakin-popover-content {
 	text-align: center;
+	min-height: 80px;
 }
 
 .peakin-popover-content a {
 	color: #555;
+}
+
+.peakin-popover-footer {
+	text-align: center;
 }
 
 .peakin-popover-title {

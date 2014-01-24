@@ -45,7 +45,7 @@ function PeakinTrackPlayer(tracks) {
 	var soundcloudlogo = "<span id=\"soundcloud-logo\" class=\"chest-centre\"><a href=\"http://www.soundcloud.com/\"><img src=\"img/soundcloud.png\"></img></a></span>";
 	var skip = "<span id=\"peakin-skip\"><a id=\"peakin-skip-button\" onclick=\"peakinTrackPlayer.skip();\" href=\"javascript:void(0);\">"+skipicon+"</a></span>";
 	var content = "<div class=\"peakin-popover-content\">" + "You're more amped than this player can handle! Try clicking again." + "</div>";
-	var skipDrop = "<div class=\"peakin-popover-content well well-small\" id=\"peakin-skiptodrop\">\
+	var skipDrop = "<div class=\"peakin-popover-footer well well-small\" id=\"peakin-skiptodrop\">\
 						<a id=\"peakin-skiptodrop-button\" onclick=\"peakinTrackPlayer.skipToDrop();\" href=\"javascript:void(0);\" rel=\"tooltip\" data-original-title=\"Skip to drop\">\
 							<strong>" + skipicon + skipicon + " <span id=\"skiptodrop-text\">!</span></strong>\
 						</a>\
