@@ -10,6 +10,11 @@
 	color: #777;
 }
 
+.copyright a:hover {
+	text-decoration: none;
+	color: #009bcd;
+}
+
 body {
 	font-family: 'Lato', sans-serif;
 }
