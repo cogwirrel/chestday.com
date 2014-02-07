@@ -107,14 +107,14 @@ var days = [
 			"4159541", // Survivor - Eye of the Tiger
 			"53045153", // Madeon - Finale
 			"103719057", // Madeon - Technicolour
-			"57893809", // Madeon - The City
-			"37889463", // Madeon - Icarus
-			"3911205", // Madeon - Shuriken
+			//"57893809", // Madeon - The City
+			//"37889463", // Madeon - Icarus
+			//"3911205", // Madeon - Shuriken
 			"108140964", // Katy Perry - Roar
 			"54833549", // Alesso - Years
 			"44509875", // Rudimental - Feel the Love
 			"97617992", // Avicii - Wake me up
-			"113161136", // Avicii - Hey Brother
+			//"113161136", // Avicii - Hey Brother
 			"63726365", // Overwerk - Daybreak
 			"40781265", // Savant - Living iPod
 			"45784550", // Savant - Splinter
