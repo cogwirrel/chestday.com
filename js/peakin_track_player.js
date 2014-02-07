@@ -282,13 +282,13 @@ PeakinTrackPlayer.prototype.findDrop = function(trackMetadata, callback) {
 			var next = data.slice(i+2*n, i+3*n).average();
 
 			// Find an 'up down up' drop
-			if(next - current > threshold && Math.abs(next - prev) < similarityThreshold) {
+			if(that.isUpDownUpDrop(prev, current, next, threshold, similarityThreshold)) {
 				drop = i;
 				break;
 			}
 
 			// Find a 'down up' drop - less preferable
-			if(current - prev > threshold && !foundBackupDrop) {
+			if(that.isDownUpDrop(prev, current, threshold) && !foundBackupDrop) {
 				backupDrop = i;
 				foundBackupDrop = true;
 			}
@@ -304,4 +304,12 @@ PeakinTrackPlayer.prototype.findDrop = function(trackMetadata, callback) {
 
 		callback(dropMilliseconds);
 	});
+}
+
+PeakinTrackPlayer.prototype.isUpDownUpDrop = function(prev, current, next, t, st) {
+	return (next - current > t) && next > prev && (next - prev) < st;
+}
+
+PeakinTrackPlayer.prototype.isDownUpDrop = function(prev, current, t) {
+	return (current - prev > t);
 }
