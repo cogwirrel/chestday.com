@@ -135,7 +135,7 @@ var days = [
 			"102286007", // Showtek - Booyah
 			"75027559", // Lana Del Rey & Cedric Gervais - Summertime Sadness
 			"128147532", // Hardwell - Dare You
-			"5199527", // W&W Alpha
+			"5199527", // W&W - Alpha
 			"19514559", // Sandro Silva - Epic
 			"67988399", // DER - Our Feeling
 			"102313961", // Calvin Harris - Eat Sleep Rave Repeat
