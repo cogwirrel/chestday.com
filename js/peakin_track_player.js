@@ -10,16 +10,6 @@ function PeakinTrackPlayer(tracks) {
 
 	this.playing = false;
 
-	// Number of tracks we've played since we last rocked out!
-	this.trackCount = 0;
-	// Number of tracks we've skipped since we last rocked out!
-	this.skipCount = 0;
-	// Number of tracks fully listened to before we engage the rock out!
-	this.ROCKOUTNUMBER = 5;
-	// Delay before rocking out after ROCKOUTNUMBER tracks
-	this.rockOutDelay = 60000;
-	this.isRockingOut = false;
-
 	this.peakinTracks = [];
 
 	// I hate javascript
@@ -32,12 +22,6 @@ function PeakinTrackPlayer(tracks) {
 	this.cacheTrack(function(track, metadata) {
 		that.currentTrack = track;
 		that.trackMetadata = metadata;
-	});
-
-	// Pre-cache next track
-	this.cacheTrack(function(track, metadata) {
-		that.nextTrack = track;
-		that.nextTrackMetadata = metadata;
 	});
 
 	var skipicon = "<i class=\"fa fa-chevron-right\"></i>";
@@ -91,9 +75,6 @@ PeakinTrackPlayer.prototype.togglePlay = function() {
 		// Stop the icon from wiggling
 		$('#headphone-button i').removeClass('red jiggle');
 
-		// Cancel any rocking out
-		this.stopRockOut();
-
 		// Show the popover with track info
 		$('#headphone-button').popover('hide');
 
@@ -117,34 +98,18 @@ PeakinTrackPlayer.prototype.togglePlay = function() {
 
 PeakinTrackPlayer.prototype.switchTracks = function() {
 
-	if(this.isRockingOut) {
-		this.stopRockOut();
-	}
-
-	this.trackCount++;
-
-	if(this.trackCount - this.skipCount == this.ROCKOUTNUMBER) {
-		this.rockOut();
-	}
-
 	// Stop the current track, stop streaming, then delete it
 	this.currentTrack.stop();
 	this.currentTrack.unload();
 	delete this.currentTrack;
 
-	// Set the current track to the next track
-	this.currentTrack = this.nextTrack;
-	this.trackMetadata = this.nextTrackMetadata;
-
-	// Play the current track
-	this.playCurrentTrack();
-
 	var that = this;
 
-	// Pre-cache next track
+	// Play the next track
 	this.cacheTrack(function(track, metadata) {
-		that.nextTrack = track;
-		that.nextTrackMetadata = metadata;
+		that.currentTrack = track;
+		that.trackMetadata = metadata;
+		that.playCurrentTrack();
 	});
 }
 
@@ -182,27 +147,6 @@ PeakinTrackPlayer.prototype.updateNowPlaying = function() {
 PeakinTrackPlayer.prototype.skip = function() {
 	this.skipCount++;
 	this.switchTracks();
-}
-
-PeakinTrackPlayer.prototype.rockOut = function() {
-	console.log("Rocking out in 1 minute!");
-	var that = this;
-	this.rockOutTimeOut = window.setTimeout(function() {
-		that.rockOutNow();
-	}, this.rockOutDelay);
-}
-
-PeakinTrackPlayer.prototype.rockOutNow = function() {
-	this.isRockingOut = true;
-	$('.jigglable').addClass('jiggle');
-}
-
-PeakinTrackPlayer.prototype.stopRockOut = function() {
-	$('.jigglable').removeClass('jiggle');
-	window.clearTimeout(this.rockOutTimeOut);
-	this.trackCount = 0;
-	this.skipCount = 0;
-	this.isRockingOut = false;
 }
 
 // Return a random soundcloud track id
