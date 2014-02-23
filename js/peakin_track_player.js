@@ -6,7 +6,8 @@ function PeakinTrackPlayer(tracks) {
 	});
 
 	// Provided list of soundcloud ids
-	this.tracks = tracks;
+	this.trackManager = new PeakinTrackManager(tracks);
+	this.trackManager.shuffle();
 
 	this.playing = false;
 
@@ -19,24 +20,26 @@ function PeakinTrackPlayer(tracks) {
 	this.nextTrackMetadata = {};
 
 	// Pre-cache current track
-	this.cacheTrack(function(track, metadata) {
+	this.cacheTrack(this.trackManager.next(), function(track, metadata) {
 		that.currentTrack = track;
 		that.trackMetadata = metadata;
 	});
 
-	var skipicon = "<i class=\"fa fa-chevron-right\"></i>";
+	var nexticon = "<i class=\"fa fa-chevron-right\"></i>";
+	var previcon = "<i class=\"fa fa-chevron-left\"></i>";
 
-	var soundcloudlogo = "<span id=\"soundcloud-logo\" class=\"chest-centre\"><a href=\"http://www.soundcloud.com/\"><img src=\"img/soundcloud.png\"></img></a></span>";
-	var skip = "<span id=\"peakin-skip\"><a id=\"peakin-skip-button\" onclick=\"peakinTrackPlayer.skip();\" href=\"javascript:void(0);\">"+skipicon+"</a></span>";
+	var soundcloudlogo = "<div id=\"soundcloud-logo\" class=\"chest-centre\"><a href=\"http://www.soundcloud.com/\"><img src=\"img/soundcloud.png\"></img></a></div>";
+	var next = "<div id=\"peakin-next\" class=\"peakin-skip\"><a id=\"peakin-skip-button\" onclick=\"peakinTrackPlayer.next();\" href=\"javascript:void(0);\">"+nexticon+"</a></div>";
+	var prev = "<div id=\"peakin-prev\" class=\"peakin-skip\"><a id=\"peakin-skip-button\" onclick=\"peakinTrackPlayer.prev();\" href=\"javascript:void(0);\">"+previcon+"</a></div>";
 	var content = "<div class=\"peakin-popover-content\">" + "You're more amped than this player can handle! Try clicking again." + "</div>";
 	var skipDrop = "<div class=\"peakin-popover-footer well well-small\" id=\"peakin-skiptodrop\">\
 						<a id=\"peakin-skiptodrop-button\" onclick=\"peakinTrackPlayer.skipToDrop();\" href=\"javascript:void(0);\" rel=\"tooltip\" data-original-title=\"Skip to drop\">\
-							<strong>" + skipicon + skipicon + " <span id=\"skiptodrop-text\">!</span></strong>\
+							<strong>" + nexticon + nexticon + " <span id=\"skiptodrop-text\">!</span></strong>\
 						</a>\
 					</div>";
 	$('#headphone-button').popover({
 		placement : 'bottom',
-		title: "<div class=\"peakin-popover-title\">" + soundcloudlogo + skip + "</div>",
+		title: "<div class=\"peakin-popover-title\">" + prev + next + soundcloudlogo + "</div>",
 		content: content,
 		html: true,
 		animation: true,
@@ -44,9 +47,8 @@ function PeakinTrackPlayer(tracks) {
 	});
 };
 
-PeakinTrackPlayer.prototype.cacheTrack = function(callback) {
+PeakinTrackPlayer.prototype.cacheTrack = function(trackId, callback) {
 	var metadata = {};
-	var trackId = this.gimmeAPeakinTrack();
 	var track = {};
 
 	// Pre-cache current track
@@ -96,7 +98,7 @@ PeakinTrackPlayer.prototype.togglePlay = function() {
 		
 }
 
-PeakinTrackPlayer.prototype.switchTracks = function() {
+PeakinTrackPlayer.prototype.switchTracks = function(newTrackId) {
 
 	// Stop the current track, stop streaming, then delete it
 	this.currentTrack.stop();
@@ -106,7 +108,7 @@ PeakinTrackPlayer.prototype.switchTracks = function() {
 	var that = this;
 
 	// Play the next track
-	this.cacheTrack(function(track, metadata) {
+	this.cacheTrack(newTrackId, function(track, metadata) {
 		that.currentTrack = track;
 		that.trackMetadata = metadata;
 		that.playCurrentTrack();
@@ -116,7 +118,7 @@ PeakinTrackPlayer.prototype.switchTracks = function() {
 PeakinTrackPlayer.prototype.playCurrentTrack = function() {
 	var that = this;
 	this.currentTrack.play({
-		'onfinish': function() {that.switchTracks();}
+		'onfinish': function() {that.next();}
 	});
 	this.updateNowPlaying();
 }
@@ -144,31 +146,12 @@ PeakinTrackPlayer.prototype.updateNowPlaying = function() {
 	$('[rel=tooltip]').tooltip({html:true, placement:'bottom'});
 }
 
-PeakinTrackPlayer.prototype.skip = function() {
-	this.skipCount++;
-	this.switchTracks();
+PeakinTrackPlayer.prototype.next = function() {
+	this.switchTracks(this.trackManager.next());
 }
 
-// Return a random soundcloud track id
-PeakinTrackPlayer.prototype.gimmeAPeakinTrack = function() {
-	// Refresh our list if we've run out of tracks
-	if(this.peakinTracks.length == 0) {
-		this.peakinTracks = this.getPeakinTracks();
-	}
-
-	// Pick a random track
-	var track = randomElement(this.peakinTracks);
-
-	// Remove it so we don't get it again (until we've run out)
-	var index = this.peakinTracks.indexOf(track);
-	this.peakinTracks.splice(index, 1);
-
-	return track;
-}
-
-PeakinTrackPlayer.prototype.getPeakinTracks = function() {
-	// Return a clone of the tracks array
-	return this.tracks.slice(0);
+PeakinTrackPlayer.prototype.prev = function() {
+	this.switchTracks(this.trackManager.prev());
 }
 
 PeakinTrackPlayer.prototype.skipToDrop = function() {

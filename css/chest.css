@@ -86,11 +86,25 @@ body {
 	height: 14px;
 }
 
-#peakin-skip a i {
+.peakin-skip a i {
 	font-size: 1em;
-	float: right;
 	color: #777;
 }
+
+#peakin-next {
+	float: right;
+}
+
+#peakin-prev {
+	float: left;
+}
+
+#soundcloud-logo {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: -4px;
+}
+
 
 #peakin-skiptodrop {
 	margin-bottom: 0px;
@@ -116,11 +130,6 @@ body {
 
 #waveform {
 	visibility: hidden;
-}
-
-#soundcloud-logo {
-	float: left;
-	margin-top: -4px;
 }
 
 .popover {
