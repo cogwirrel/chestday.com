@@ -1,8 +1,12 @@
 setChest = function (title, header, footer, img) {
 	document.title = title;
 	$('#chest-header').html(header);
-	$('#chest-img').attr('src', img);
+	setImage(img);
 	$('#chest-footer').html(footer);
+}
+
+setImage = function(img) {
+	$('#chest-img').attr('src', img);
 }
 
 // Array of different 'Days'

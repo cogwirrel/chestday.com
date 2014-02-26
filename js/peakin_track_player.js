@@ -60,6 +60,7 @@ PeakinTrackPlayer.prototype.cacheTrack = function(trackId, callback) {
 			metadata.url = data.permalink_url;
 			metadata.artisturl = data.user.permalink_url;
 			metadata.track = data;
+			metadata.id = trackId;
 
 			callback(track, metadata);
 		});
@@ -154,12 +155,29 @@ PeakinTrackPlayer.prototype.prev = function() {
 	this.switchTracks(this.trackManager.prev());
 }
 
+PeakinTrackPlayer.prototype.beaker = function() {
+	if(this.trackMetadata.id == "102313961") {
+		// If it's Eat, Sleep, Rave, Repeat
+		window.setTimeout(function() {
+			var oldImage = $('#chest-img').attr('src');
+			console.log(oldImage);
+			setImage("img/beaker.gif");
+			window.setTimeout(function() {
+				setImage(oldImage);
+			}, 16000);
+		}, 4000);
+	}
+}
+
 PeakinTrackPlayer.prototype.skipToDrop = function() {
 	// Skip to the location where a drop has been detected
 	var that = this;
 	this.findDrop(this.trackMetadata, function(drop) {
 		that.currentTrack.setPosition(drop);
 		console.log("Skipped to " + drop + "ms");
+
+		// Easter egg!
+		that.beaker();
 	});
 }
 
