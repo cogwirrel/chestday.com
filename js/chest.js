@@ -144,7 +144,8 @@ var days = [
 			"67988399", // DER - Our Feeling
 			"102313961", // Calvin Harris - Eat Sleep Rave Repeat
 			"122455506", // Tiesto - Red Lights
-			"106914652" // DVBBS & Borgeous - Tsunami
+			"106914652", // DVBBS & Borgeous - Tsunami
+			"74396084" // Virtual Riot - Idols (EDM Mashup)
 			// "77471974", // 2-second test track
 			// "65555191" // 10-second test track
 		]
