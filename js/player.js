@@ -8,5 +8,7 @@ $(document).ready(function() {
 	}
 
 	// Attach peakinTrackPlayer to window ( skip button uses this global reference :/ )
-	window.peakinTrackPlayer = new PeakinTrackPlayer('peakin-track-container', tracks);
+	window.peakinTrackPlayer = new PeakinTrackPlayer('peakin-track-container', tracks, function() {
+		$('#headphone-button').click();
+	});
 });

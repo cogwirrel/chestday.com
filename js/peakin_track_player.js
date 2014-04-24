@@ -1,4 +1,5 @@
-function PeakinTrackPlayer(id, tracks) {
+function PeakinTrackPlayer(id, tracks, initialisedCallback) {
+	initialisedCallback = initialisedCallback || (function() {console.log("Player ready");});
 
 	var peakinTrackIcon = "<a href=\"javascript:void(0);\" id=\"headphone-button\"><i class=\"fa fa-headphones\"></i></a>";
 	$('#' + id).html(peakinTrackIcon);
@@ -26,6 +27,7 @@ function PeakinTrackPlayer(id, tracks) {
 	this.cacheTrack(this.trackManager.next(), function(track, metadata) {
 		that.currentTrack = track;
 		that.trackMetadata = metadata;
+		initialisedCallback();
 	});
 
 	var nexticon = "<i class=\"fa fa-chevron-right\"></i>";
