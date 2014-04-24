@@ -2,6 +2,11 @@
 	text-align: center;
 }
 
+.player-container {
+	padding-left: 105px;
+	float: left;
+}
+
 #chest-img {
 	height: 400px;
 }
