@@ -17,6 +17,13 @@ isDefined = function(obj) {
 	return !(typeof obj === "undefined");
 }
 
+getParameterByName = function(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
 Array.prototype.max = function() {
   return Math.max.apply(null, this);
 };

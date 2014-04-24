@@ -1,9 +1,16 @@
 $(document).ready(function() {
 
 	var tracks = [];
-	for(var i = 0; i < days.length; i++) {
-		if(days[i].title == "Chest Day") {
-			tracks = days[i].tracks;
+
+	var trackParam = getParameterByName("track");
+
+	if(trackParam !== "") {
+		tracks.push(trackParam);
+	} else {
+		for(var i = 0; i < days.length; i++) {
+			if(days[i].title == "Chest Day") {
+				tracks = days[i].tracks;
+			}
 		}
 	}
 
