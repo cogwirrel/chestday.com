@@ -190,7 +190,7 @@ PeakinTrackPlayer.prototype.skipToDrop = function() {
 		console.log("Skipped to " + drop + "ms");
 
 		// Easter egg!
-		that.beaker();
+		//that.beaker();
 	});
 }
 
@@ -198,14 +198,14 @@ PeakinTrackPlayer.prototype.findDrop = function(trackMetadata, callback) {
 	// Create a Waveform, note that container isn't actually used as I modified waveform.js
 	// - we don't care about displaying the waveform, we just want to find the drop!
 	var wav = new Waveform({
-		container: document.getElementById("waveform")
+		container: document.getElementById("waveform"),
+		width: 1920,
 	});
 
 	var that = this;
 
 	// Request the waveform data from soundcloud servers
 	wav.dataFromSoundCloudTrack(trackMetadata.track, function(waveform) {
-		
 		// Obtain the number of milliseconds each waveform entry accounts for in the track
 		var millisPerWaveformChunk = trackMetadata.track.duration / waveform.data.length;
 
