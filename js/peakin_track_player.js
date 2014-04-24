@@ -1,7 +1,7 @@
 function PeakinTrackPlayer(id, tracks, initialisedCallback) {
 	initialisedCallback = initialisedCallback || (function() {console.log("Player ready");});
 
-	var peakinTrackIcon = "<a href=\"javascript:void(0);\" id=\"headphone-button\"><i class=\"fa fa-headphones\"></i></a>";
+	var peakinTrackIcon = "<a href=\"javascript:void(0);\" id=\"headphone-button\" class=\"disabled\"><i class=\"fa fa-headphones\"></i></a>";
 	$('#' + id).html(peakinTrackIcon);
 
 	// Initialise soundcloud api
@@ -23,36 +23,40 @@ function PeakinTrackPlayer(id, tracks, initialisedCallback) {
 	this.trackMetadata = {};
 	this.nextTrackMetadata = {};
 
-	// Pre-cache current track
+	// Pre-cache first track
 	this.cacheTrack(this.trackManager.next(), function(track, metadata) {
 		that.currentTrack = track;
 		that.trackMetadata = metadata;
+
+		var nexticon = "<i class=\"fa fa-chevron-right\"></i>";
+		var previcon = "<i class=\"fa fa-chevron-left\"></i>";
+
+		var soundcloudlogo = "<div id=\"soundcloud-logo\" class=\"chest-centre\"><a href=\"http://www.soundcloud.com/\"><img src=\"/img/soundcloud.png\"></img></a></div>";
+		var next = "<div id=\"peakin-next\" class=\"peakin-skip\"><a id=\"peakin-skip-button\" onclick=\"peakinTrackPlayer.next();\" href=\"javascript:void(0);\">"+nexticon+"</a></div>";
+		var prev = "<div id=\"peakin-prev\" class=\"peakin-skip\"><a id=\"peakin-skip-button\" onclick=\"peakinTrackPlayer.prev();\" href=\"javascript:void(0);\">"+previcon+"</a></div>";
+		var content = "<div class=\"peakin-popover-content\">" + "You're more amped than this player can handle! Try clicking again." + "</div>";
+		var skipDrop = "<div class=\"peakin-popover-footer well well-small\" id=\"peakin-skiptodrop\">\
+							<a id=\"peakin-skiptodrop-button\" onclick=\"peakinTrackPlayer.skipToDrop();\" href=\"javascript:void(0);\" rel=\"tooltip\" data-original-title=\"Skip to drop\">\
+								<strong>" + nexticon + nexticon + " <span id=\"skiptodrop-text\">!</span></strong>\
+							</a>\
+						</div>";
+
+		$('#headphone-button').popover({
+			placement : 'bottom',
+			title: "<div class=\"peakin-popover-title\">" + prev + next + soundcloudlogo + "</div>",
+			content: content,
+			html: true,
+			animation: true,
+			template: '<div class="popover jigglable"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div>' + skipDrop + '</div>'
+		});
+
+		$('#headphone-button').click(function(event) {
+			peakinTrackPlayer.togglePlay();
+		});
+
+		$('#headphone-button').removeClass("disabled");
+
 		initialisedCallback();
-	});
-
-	var nexticon = "<i class=\"fa fa-chevron-right\"></i>";
-	var previcon = "<i class=\"fa fa-chevron-left\"></i>";
-
-	var soundcloudlogo = "<div id=\"soundcloud-logo\" class=\"chest-centre\"><a href=\"http://www.soundcloud.com/\"><img src=\"/img/soundcloud.png\"></img></a></div>";
-	var next = "<div id=\"peakin-next\" class=\"peakin-skip\"><a id=\"peakin-skip-button\" onclick=\"peakinTrackPlayer.next();\" href=\"javascript:void(0);\">"+nexticon+"</a></div>";
-	var prev = "<div id=\"peakin-prev\" class=\"peakin-skip\"><a id=\"peakin-skip-button\" onclick=\"peakinTrackPlayer.prev();\" href=\"javascript:void(0);\">"+previcon+"</a></div>";
-	var content = "<div class=\"peakin-popover-content\">" + "You're more amped than this player can handle! Try clicking again." + "</div>";
-	var skipDrop = "<div class=\"peakin-popover-footer well well-small\" id=\"peakin-skiptodrop\">\
-						<a id=\"peakin-skiptodrop-button\" onclick=\"peakinTrackPlayer.skipToDrop();\" href=\"javascript:void(0);\" rel=\"tooltip\" data-original-title=\"Skip to drop\">\
-							<strong>" + nexticon + nexticon + " <span id=\"skiptodrop-text\">!</span></strong>\
-						</a>\
-					</div>";
-	$('#headphone-button').popover({
-		placement : 'bottom',
-		title: "<div class=\"peakin-popover-title\">" + prev + next + soundcloudlogo + "</div>",
-		content: content,
-		html: true,
-		animation: true,
-		template: '<div class="popover jigglable"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div>' + skipDrop + '</div>'
-	});
-
-	$('#headphone-button').click(function(event) {
-		peakinTrackPlayer.togglePlay();
 	});
 };
 
