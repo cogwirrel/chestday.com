@@ -1,4 +1,7 @@
-function PeakinTrackPlayer(tracks) {
+function PeakinTrackPlayer(id, tracks) {
+
+	var peakinTrackIcon = "<a href=\"javascript:void(0);\" id=\"headphone-button\"><i class=\"fa fa-headphones\"></i></a>";
+	$('#' + id).html(peakinTrackIcon);
 
 	// Initialise soundcloud api
 	SC.initialize({
@@ -44,6 +47,10 @@ function PeakinTrackPlayer(tracks) {
 		html: true,
 		animation: true,
 		template: '<div class="popover jigglable"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div>' + skipDrop + '</div>'
+	});
+
+	$('#headphone-button').click(function(event) {
+		peakinTrackPlayer.togglePlay();
 	});
 };
 

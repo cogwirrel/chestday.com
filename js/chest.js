@@ -204,17 +204,8 @@ setDay = function(day) {
 }
 
 addPeakinTrackPlayer = function(tracks) {
-
-	var peakinTrackIcon = "<a href=\"javascript:void(0);\" id=\"headphone-button\"><i class=\"fa fa-headphones\"></i></a>";
-	$('#peakin-track-container').html(peakinTrackIcon);
-
 	// Attach peakinTrackPlayer to window ( skip button uses this global reference :/ )
-	window.peakinTrackPlayer = new PeakinTrackPlayer(tracks);
-
-	$('#headphone-button').click(function(event) {
-		peakinTrackPlayer.togglePlay();
-	});
-	
+	window.peakinTrackPlayer = new PeakinTrackPlayer('peakin-track-container', tracks);
 }
 
 // Just so people can change it to chest day in the console to listen to the tuuunes :)
