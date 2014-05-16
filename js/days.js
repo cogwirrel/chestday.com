@@ -134,6 +134,7 @@ var days = [
 			"122455506", // Tiesto - Red Lights
 			"106914652", // DVBBS & Borgeous - Tsunami
 			"90499890", // Pegboard Nerds & Tristam - Razor Sharp
+			"5965679", // John O'Callaghan - Find Yourself
 			"74396084" // Virtual Riot - Idols (EDM Mashup)
 			// "77471974", // 2-second test track
 			// "65555191" // 10-second test track
