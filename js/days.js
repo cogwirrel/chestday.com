@@ -136,7 +136,10 @@ var days = [
 			"90499890", // Pegboard Nerds & Tristam - Razor Sharp
 			"5965679", // John O'Callaghan - Find Yourself
 			"48266391", // Andrew Rayel - Aeon of Revenge
-			"74396084" // Virtual Riot - Idols (EDM Mashup)
+			"74396084", // Virtual Riot - Idols (EDM Mashup)
+			"29844520", // Marcus Maison - Reign
+			"39518651", // Cosmic Gate - Wild and Perfect Day
+			"120153757" // Armin Van Buuren - Save My Night
 			// "77471974", // 2-second test track
 			// "65555191" // 10-second test track
 		]
