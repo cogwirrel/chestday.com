@@ -67,16 +67,24 @@ PeakinTrackPlayer.prototype.cacheTrack = function(trackId, callback) {
 	// Pre-cache current track
 	SC.stream("/tracks/" + trackId, function(sound) {
 		track = sound;
-		SC.get("/tracks/" + trackId, function(data) {
-			metadata.artist = data.user.username;
-			metadata.title = data.title;
-			metadata.url = data.permalink_url;
-			metadata.artisturl = data.user.permalink_url;
-			metadata.track = data;
-			metadata.id = trackId;
+		if(track) {
+			SC.get("/tracks/" + trackId, function(data) {
+				if(data && data.user && data.title && data.permalink_url && data.user.username) {
+					metadata.artist = data.user.username;
+					metadata.title = data.title;
+					metadata.url = data.permalink_url;
+					metadata.artisturl = data.user.permalink_url;
+					metadata.track = data;
+					metadata.id = trackId;
 
-			callback(track, metadata);
-		});
+					callback(track, metadata);
+				} else {
+					callback(null, null);
+				}
+			});
+		} else {
+			callback(null, null);
+		}
 	});
 }
 
@@ -115,9 +123,11 @@ PeakinTrackPlayer.prototype.togglePlay = function() {
 PeakinTrackPlayer.prototype.switchTracks = function(newTrackId) {
 
 	// Stop the current track, stop streaming, then delete it
-	this.currentTrack.stop();
-	this.currentTrack.unload();
-	delete this.currentTrack;
+	if(this.currentTrack) {
+		this.currentTrack.stop();
+		this.currentTrack.unload();
+		delete this.currentTrack;
+	}
 
 	var that = this;
 
@@ -131,10 +141,14 @@ PeakinTrackPlayer.prototype.switchTracks = function(newTrackId) {
 
 PeakinTrackPlayer.prototype.playCurrentTrack = function() {
 	var that = this;
-	this.currentTrack.play({
-		'onfinish': function() {that.next();}
-	});
-	this.updateNowPlaying();
+	if(this.currentTrack) {
+		this.currentTrack.play({
+			'onfinish': function() {that.next();}
+		});
+		this.updateNowPlaying();
+	} else {
+		this.next();
+	}
 }
 
 PeakinTrackPlayer.prototype.updateNowPlaying = function() {
