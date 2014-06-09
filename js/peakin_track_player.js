@@ -34,7 +34,7 @@ function PeakinTrackPlayer(id, tracks, initialisedCallback) {
 		var soundcloudlogo = "<div id=\"soundcloud-logo\" class=\"chest-centre\"><a href=\"http://www.soundcloud.com/\"><img src=\"/img/soundcloud.png\"></img></a></div>";
 		var next = "<div id=\"peakin-next\" class=\"peakin-skip\"><a id=\"peakin-skip-button\" onclick=\"peakinTrackPlayer.next();\" href=\"javascript:void(0);\">"+nexticon+"</a></div>";
 		var prev = "<div id=\"peakin-prev\" class=\"peakin-skip\"><a id=\"peakin-skip-button\" onclick=\"peakinTrackPlayer.prev();\" href=\"javascript:void(0);\">"+previcon+"</a></div>";
-		var content = "<div class=\"peakin-popover-content\">" + "You're more amped than this player can handle! Try clicking again." + "</div>";
+		var content = "<div class=\"peakin-popover-content\">" + "You're more amped than this player can handle! Reload the page and chill for a few seconds bro." + "</div>";
 		var skipDrop = "<div class=\"peakin-popover-footer well well-small\" id=\"peakin-skiptodrop\">\
 							<a id=\"peakin-skiptodrop-button\" onclick=\"peakinTrackPlayer.skipToDrop();\" href=\"javascript:void(0);\" rel=\"tooltip\" data-original-title=\"Skip to drop\">\
 								<strong>" + nexticon + nexticon + " <span id=\"skiptodrop-text\">!</span></strong>\
@@ -147,6 +147,7 @@ PeakinTrackPlayer.prototype.playCurrentTrack = function() {
 		});
 		this.updateNowPlaying();
 	} else {
+		console.log("Could not load track, skipping...");
 		this.next();
 	}
 }
