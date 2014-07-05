@@ -41,6 +41,9 @@ setDay = function(day) {
 addPeakinTrackPlayer = function(tracks) {
 	// Attach peakinTrackPlayer to window ( skip button uses this global reference :/ )
 	window.peakinTrackPlayer = new PeakinTrackPlayer('peakin-track-container', tracks);
+
+	// Get rid of the squat icon
+	$('#squat-img-container').hide();
 }
 
 // Just so people can change it to chest day in the console to listen to the tuuunes :)
