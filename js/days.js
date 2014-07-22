@@ -139,6 +139,9 @@ var days = [
 			"74396084", // Virtual Riot - Idols (EDM Mashup)
 			"29844520", // Marcus Maison - Reign
 			"39518651", // Cosmic Gate - Wild and Perfect Day
+			"145190806", // Tiesto - Wasted
+			"143553285", // Calvin Harris - Summer
+			"119790148", // Deorro - Five Hours
 			"120153757" // Armin Van Buuren - Save My Night
 			// "77471974", // 2-second test track
 			// "65555191" // 10-second test track
