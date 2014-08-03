@@ -105,9 +105,7 @@ PeakinTrackPlayer.prototype.togglePlay = function() {
 		this.playing = false;
 	} else {
 		// Start playing the peakin track!
-		if(this.currentTrack) {
-			this.playCurrentTrack();
-		}
+		this.playCurrentTrack();
 
 		// Start wiggling
 		$('#headphone-button i').addClass('red jiggle');
