@@ -11,8 +11,9 @@ setImage = function(img) {
 
 $(document).ready(function() {
 	// Check whether we're mobile
-	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+	if(!(typeof AndroidChestDay === "undefined")) {
 		$('#chest-img').height(200);
+		$('#squat-img-container').hide();
 	}
 
 	date = new Date();
@@ -34,7 +35,7 @@ setDay = function(day) {
 		randomImage(day.imagePrefix, 1, day.numImages)
 	);
 
-	if(isDefined(day.tracks)) {
+	if(isDefined(day.tracks) && typeof AndroidChestDay === "undefined") {
 		addPeakinTrackPlayer(day.tracks);
 	}
 
