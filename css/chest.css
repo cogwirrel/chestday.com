@@ -58,6 +58,10 @@ body {
 	color: #333;
 }
 
+.android-app-button i:hover {
+	color: #a4c639;
+}
+
 #headphone-button i:hover {
 	color: #cc181e;
 }
