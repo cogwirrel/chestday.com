@@ -180,7 +180,7 @@
 
     Waveform.prototype.dataFromSoundCloudTrack = function(track, callback) {
       var _this = this;
-      return JSONP.get("http://www.waveformjs.org/w", {
+      return JSONP.get("//www.waveformjs.org/w", {
         url: track.waveform_url
       }, function(data) {
         var thing = _this.update({
