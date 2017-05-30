@@ -23,41 +23,47 @@ function PeakinTrackPlayer(id, tracks, initialisedCallback) {
 	this.trackMetadata = {};
 	this.nextTrackMetadata = {};
 
+	var cachedCallback = function(track, metadata) {
+		if(track) {
+			that.currentTrack = track;
+			that.trackMetadata = metadata;
+
+			var nexticon = "<i class=\"fa fa-chevron-right\"></i>";
+			var previcon = "<i class=\"fa fa-chevron-left\"></i>";
+
+			var soundcloudlogo = "<div id=\"soundcloud-logo\" class=\"chest-centre\"><a href=\"http://www.soundcloud.com/\"><img src=\"/img/soundcloud.png\"></img></a></div>";
+			var next = "<div id=\"peakin-next\" class=\"peakin-skip\"><a id=\"peakin-skip-button\" onclick=\"peakinTrackPlayer.next();\" href=\"javascript:void(0);\">"+nexticon+"</a></div>";
+			var prev = "<div id=\"peakin-prev\" class=\"peakin-skip\"><a id=\"peakin-skip-button\" onclick=\"peakinTrackPlayer.prev();\" href=\"javascript:void(0);\">"+previcon+"</a></div>";
+			var content = "<div class=\"peakin-popover-content\">" + "You're more amped than this player can handle! Reload the page and chill for a few seconds bro." + "</div>";
+			var skipDrop = "<div class=\"peakin-popover-footer well well-small\" id=\"peakin-skiptodrop\">\
+								<a id=\"peakin-skiptodrop-button\" onclick=\"peakinTrackPlayer.skipToDrop();\" href=\"javascript:void(0);\" rel=\"tooltip\" data-original-title=\"Skip to drop\">\
+									<strong>" + nexticon + nexticon + " <span id=\"skiptodrop-text\">!</span></strong>\
+								</a>\
+							</div>";
+
+			$('#headphone-button').popover({
+				placement : 'bottom',
+				title: "<div class=\"peakin-popover-title\">" + prev + next + soundcloudlogo + "</div>",
+				content: content,
+				html: true,
+				animation: true,
+				template: '<div class="popover jigglable"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div>' + skipDrop + '</div>'
+			});
+
+			$('#headphone-button').click(function(event) {
+				peakinTrackPlayer.togglePlay();
+			});
+
+			$('#headphone-button').removeClass("disabled");
+
+			initialisedCallback();
+		} else {
+			that.cacheTrack(that.trackManager.next(), cachedCallback);
+		}
+	};
+
 	// Pre-cache first track
-	this.cacheTrack(this.trackManager.next(), function(track, metadata) {
-		that.currentTrack = track;
-		that.trackMetadata = metadata;
-
-		var nexticon = "<i class=\"fa fa-chevron-right\"></i>";
-		var previcon = "<i class=\"fa fa-chevron-left\"></i>";
-
-		var soundcloudlogo = "<div id=\"soundcloud-logo\" class=\"chest-centre\"><a href=\"http://www.soundcloud.com/\"><img src=\"/img/soundcloud.png\"></img></a></div>";
-		var next = "<div id=\"peakin-next\" class=\"peakin-skip\"><a id=\"peakin-skip-button\" onclick=\"peakinTrackPlayer.next();\" href=\"javascript:void(0);\">"+nexticon+"</a></div>";
-		var prev = "<div id=\"peakin-prev\" class=\"peakin-skip\"><a id=\"peakin-skip-button\" onclick=\"peakinTrackPlayer.prev();\" href=\"javascript:void(0);\">"+previcon+"</a></div>";
-		var content = "<div class=\"peakin-popover-content\">" + "You're more amped than this player can handle! Reload the page and chill for a few seconds bro." + "</div>";
-		var skipDrop = "<div class=\"peakin-popover-footer well well-small\" id=\"peakin-skiptodrop\">\
-							<a id=\"peakin-skiptodrop-button\" onclick=\"peakinTrackPlayer.skipToDrop();\" href=\"javascript:void(0);\" rel=\"tooltip\" data-original-title=\"Skip to drop\">\
-								<strong>" + nexticon + nexticon + " <span id=\"skiptodrop-text\">!</span></strong>\
-							</a>\
-						</div>";
-
-		$('#headphone-button').popover({
-			placement : 'bottom',
-			title: "<div class=\"peakin-popover-title\">" + prev + next + soundcloudlogo + "</div>",
-			content: content,
-			html: true,
-			animation: true,
-			template: '<div class="popover jigglable"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div>' + skipDrop + '</div>'
-		});
-
-		$('#headphone-button').click(function(event) {
-			peakinTrackPlayer.togglePlay();
-		});
-
-		$('#headphone-button').removeClass("disabled");
-
-		initialisedCallback();
-	});
+	this.cacheTrack(this.trackManager.next(), cachedCallback);
 };
 
 PeakinTrackPlayer.prototype.cacheTrack = function(trackId, callback) {
@@ -65,28 +71,48 @@ PeakinTrackPlayer.prototype.cacheTrack = function(trackId, callback) {
 	var track = {};
 
 	// Pre-cache current track
-	SC.stream("/tracks/" + trackId, function(sound) {
-		track = sound;
-		if(track) {
-			SC.get("/tracks/" + trackId, function(data) {
-				if(data && data.user && data.title && data.permalink_url && data.user.username) {
-					metadata.artist = data.user.username;
-					metadata.title = data.title;
-					metadata.url = data.permalink_url;
-					metadata.artisturl = data.user.permalink_url;
-					metadata.track = data;
-					metadata.id = trackId;
+	try {
+		SC.stream("/tracks/" + trackId).then(function(sound) {
+			track = sound;
+			if(track) {
+				if (sound.options.protocols && sound.options.protocols[0] === 'rtmp') {
+				    sound.options.protocols = sound.options.protocols.reverse();
+				}
+				try {
+					SC.get("/tracks/" + trackId).then(function(data) {
+						if(data && data.user && data.title && data.permalink_url && data.user.username) {
+							metadata.artist = data.user.username;
+							metadata.title = data.title;
+							metadata.url = data.permalink_url;
+							metadata.artisturl = data.user.permalink_url;
+							metadata.track = data;
+							metadata.id = trackId;
 
-					callback(track, metadata);
-				} else {
+							callback(track, metadata);
+						} else {
+							callback(null, null);
+						}
+					}).catch(function(error) {
+						console.log("Failed to get track metadata!");
+						callback(null, null);
+					});
+				} catch(ex) {
+					console.log("Failed to get track metadata!");
 					callback(null, null);
 				}
-			});
-		} else {
+			} else {
+				console.log("Failed to cache track!");
+				callback(null, null);
+			}
+		}).catch(function(error) {
+			console.log("Failed to cache track!");
 			callback(null, null);
-		}
-	});
-}
+		});
+	} catch(e) {
+		console.log("Can't stream!");
+		callback(null, null);
+	}
+};
 
 PeakinTrackPlayer.prototype.togglePlay = function() {
 
@@ -116,14 +142,13 @@ PeakinTrackPlayer.prototype.togglePlay = function() {
 		this.playing = true;
 	}
 		
-}
+};
 
 PeakinTrackPlayer.prototype.switchTracks = function(newTrackId) {
 
 	// Stop the current track, stop streaming, then delete it
 	if(this.currentTrack) {
-		this.currentTrack.stop();
-		this.currentTrack.unload();
+		this.currentTrack.pause();
 		delete this.currentTrack;
 	}
 
@@ -135,7 +160,7 @@ PeakinTrackPlayer.prototype.switchTracks = function(newTrackId) {
 		that.trackMetadata = metadata;
 		that.playCurrentTrack();
 	});
-}
+};
 
 PeakinTrackPlayer.prototype.playCurrentTrack = function() {
 	var that = this;
@@ -148,7 +173,7 @@ PeakinTrackPlayer.prototype.playCurrentTrack = function() {
 		console.log("Could not load track, skipping...");
 		this.next();
 	}
-}
+};
 
 PeakinTrackPlayer.prototype.updateNowPlaying = function() {
 
@@ -171,15 +196,15 @@ PeakinTrackPlayer.prototype.updateNowPlaying = function() {
 	popover.$tip.find('.popover-content').html(content);
 
 	$('[rel=tooltip]').tooltip({html:true, placement:'bottom'});
-}
+};
 
 PeakinTrackPlayer.prototype.next = function() {
 	this.switchTracks(this.trackManager.next());
-}
+};
 
 PeakinTrackPlayer.prototype.prev = function() {
 	this.switchTracks(this.trackManager.prev());
-}
+};
 
 PeakinTrackPlayer.prototype.beaker = function() {
 	if(this.trackMetadata.id == "102313961") {
@@ -193,7 +218,7 @@ PeakinTrackPlayer.prototype.beaker = function() {
 			}, 16000);
 		}, 4000);
 	}
-}
+};
 
 PeakinTrackPlayer.prototype.skipToDrop = function() {
 	// Skip to the location where a drop has been detected
@@ -205,7 +230,7 @@ PeakinTrackPlayer.prototype.skipToDrop = function() {
 		// Easter egg!
 		//that.beaker();
 	});
-}
+};
 
 PeakinTrackPlayer.prototype.findDrop = function(trackMetadata, callback) {
 	// Create a Waveform, note that container isn't actually used as I modified waveform.js
@@ -275,12 +300,12 @@ PeakinTrackPlayer.prototype.findDrop = function(trackMetadata, callback) {
 
 		callback(dropMilliseconds);
 	});
-}
+};
 
 PeakinTrackPlayer.prototype.isUpDownUpDrop = function(prev, current, next, t, st) {
 	return (next - current > t) && next > prev && (next - prev) < st;
-}
+};
 
 PeakinTrackPlayer.prototype.isDownUpDrop = function(prev, current, t) {
 	return (current - prev > t);
-}
+};
