@@ -119,6 +119,8 @@ PeakinTrackPlayer.prototype.togglePlay = function() {
 	if(this.playing) {
 		// Stop the soundcloud player
 		if(this.currentTrack) {
+			// Need to play then pause for some reason!!
+			this.currentTrack.play();
 			this.currentTrack.pause();
 		}
 
