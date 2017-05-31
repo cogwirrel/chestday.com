@@ -54,7 +54,7 @@ function PeakinTrackPlayer(id, tracks, keywords, initialisedCallback) {
 
 			initialisedCallback();
 		} else {
-			if(that.failCount > 10) {
+			if(that.failCount > 5) {
 				// This playlist sucks, so pick another one!!
 				that.failCount = 0;
 				that.playlistify(randomElement(that.randomPlaylistKeywords), function() {
@@ -188,8 +188,15 @@ PeakinTrackPlayer.prototype.playCurrentTrack = function() {
 		});
 		this.updateNowPlaying();
 	} else {
-		console.log("Could not load track, skipping...");
-		this.next();
+		if(this.failCount > 5) {
+			// This playlist is rubbish!
+			this.failCount = 0;
+			this.randomPlaylist();
+		} else {
+			this.failCount++;
+			console.log("Could not load track, skipping...");
+			this.next();
+		}
 	}
 };
 
@@ -227,7 +234,10 @@ PeakinTrackPlayer.prototype.prev = function() {
 PeakinTrackPlayer.prototype.randomPlaylist = function(inKeyword) {
 	var that = this;
 	console.log("Finding a random playlist");
-	this.playlistify(inKeyword || randomElement(this.randomPlaylistKeywords), function() {
+	if(inKeyword) {
+		this.randomPlaylistKeywords = [inKeyword];
+	}
+	this.playlistify(randomElement(this.randomPlaylistKeywords), function() {
 		that.next();
 	});
 };
