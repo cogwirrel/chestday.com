@@ -1,27 +1,20 @@
-function PeakinTrackPlayer(id, tracks, initialisedCallback) {
+function PeakinTrackPlayer(id, tracks, keywords, initialisedCallback) {
 	initialisedCallback = initialisedCallback || (function() {console.log("Player ready");});
 
 	var peakinTrackIcon = "<a href=\"javascript:void(0);\" id=\"headphone-button\" class=\"disabled\"><i class=\"fa fa-headphones\"></i></a>";
 	$('#' + id).html(peakinTrackIcon);
 
-	// Initialise soundcloud api
-	SC.initialize({
-		client_id: '8eaeb95d4bf84d06f0001a18f55695a2'
-	});
-
-	// Provided list of soundcloud ids
-	this.trackManager = new PeakinTrackManager(tracks);
-	this.trackManager.shuffle();
-
 	this.playing = false;
-
-	this.peakinTracks = [];
 
 	// I hate javascript
 	var that = this;
 
 	this.trackMetadata = {};
 	this.nextTrackMetadata = {};
+
+	this.randomPlaylistKeywords = keywords || [];
+	this.failCount = 0;
+
 
 	var cachedCallback = function(track, metadata) {
 		if(track) {
@@ -38,6 +31,9 @@ function PeakinTrackPlayer(id, tracks, initialisedCallback) {
 			var skipDrop = "<div class=\"peakin-popover-footer well well-small\" id=\"peakin-skiptodrop\">\
 								<a id=\"peakin-skiptodrop-button\" onclick=\"peakinTrackPlayer.skipToDrop();\" href=\"javascript:void(0);\" rel=\"tooltip\" data-original-title=\"Skip to drop\">\
 									<strong>" + nexticon + nexticon + " <span id=\"skiptodrop-text\">!</span></strong>\
+								</a>\
+								<a href=\"javascript:void(0);\" class=\"peakin-shuffle\" onclick=\"peakinTrackPlayer.randomPlaylist();\" rel=\"tooltip\" data-original-title=\"Random new tracks\">\
+									<i id=\"peakin-shuffle-button\" class=\"fa fa-random\"></i>\
 								</a>\
 							</div>";
 
@@ -58,12 +54,31 @@ function PeakinTrackPlayer(id, tracks, initialisedCallback) {
 
 			initialisedCallback();
 		} else {
-			that.cacheTrack(that.trackManager.next(), cachedCallback);
+			if(that.failCount > 10) {
+				// This playlist sucks, so pick another one!!
+				that.failCount = 0;
+				that.playlistify(randomElement(that.randomPlaylistKeywords), function() {
+					that.cacheTrack(that.trackManager.next(), cachedCallback);
+				});
+			} else {
+				that.failCount++;
+				that.cacheTrack(that.trackManager.next(), cachedCallback);
+			}
 		}
 	};
 
-	// Pre-cache first track
-	this.cacheTrack(this.trackManager.next(), cachedCallback);
+	if(tracks) {
+		// Provided list of soundcloud ids
+		this.trackManager = new PeakinTrackManager(tracks);
+		this.trackManager.shuffle();
+
+		// Pre-cache first track
+		this.cacheTrack(this.trackManager.next(), cachedCallback);
+	} else {
+		this.playlistify(randomElement(this.randomPlaylistKeywords), function() {
+			that.cacheTrack(that.trackManager.next(), cachedCallback);
+		});
+	}
 };
 
 PeakinTrackPlayer.prototype.cacheTrack = function(trackId, callback) {
@@ -207,6 +222,28 @@ PeakinTrackPlayer.prototype.next = function() {
 
 PeakinTrackPlayer.prototype.prev = function() {
 	this.switchTracks(this.trackManager.prev());
+};
+
+PeakinTrackPlayer.prototype.randomPlaylist = function(inKeyword) {
+	var that = this;
+	console.log("Finding a random playlist");
+	this.playlistify(inKeyword || randomElement(this.randomPlaylistKeywords), function() {
+		that.next();
+	});
+};
+
+PeakinTrackPlayer.prototype.playlistify = function(keyword, callback) {
+	var that = this;
+	SC.get('/playlists', { q: keyword }).then(function(playlists) {
+		var playlist = randomElement(playlists);
+		fetchPlaylist(playlist.id, function(tracks) {
+			console.log("Playlist found for keywords '" + keyword + "'");
+			console.log("Titled: " + playlist.title);
+			that.trackManager = new PeakinTrackManager(tracks);
+			that.trackManager.shuffle();
+			callback();
+		});
+	});
 };
 
 PeakinTrackPlayer.prototype.beaker = function() {

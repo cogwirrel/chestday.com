@@ -13,8 +13,12 @@ $(document).ready(function() {
 	// Check whether we're mobile
 	if(!(typeof AndroidChestDay === "undefined")) {
 		$('#chest-img').height(200);
-		$('#squat-img-container').hide();
 	}
+
+	// Initialize soundcloud!
+	SC.initialize({
+		client_id: '8eaeb95d4bf84d06f0001a18f55695a2'
+	});
 
 	date = new Date();
 
@@ -35,8 +39,14 @@ setDay = function(day) {
 		randomImage(day.imagePrefix, 1, day.numImages)
 	);
 
-	if(isDefined(day.tracks) && typeof AndroidChestDay === "undefined") {
-		addPeakinTrackPlayer(day.tracks);
+	if(typeof AndroidChestDay === "undefined"){
+		if(isDefined(day.playlist)) {
+			fetchPlaylist(day.playlist, function(tracks) {
+				addPeakinTrackPlayer(tracks, day.randomPlaylistKeywords);
+			});
+		} else if(isDefined(day.tracks)) {
+			addPeakinTrackPlayer(day.tracks, day.randomPlaylistKeywords);
+		}
 	}
 
 	if(isDefined(day.special)) {
@@ -44,12 +54,9 @@ setDay = function(day) {
 	}
 }
 
-addPeakinTrackPlayer = function(tracks) {
+addPeakinTrackPlayer = function(tracks, keywords) {
 	// Attach peakinTrackPlayer to window ( skip button uses this global reference :/ )
-	window.peakinTrackPlayer = new PeakinTrackPlayer('peakin-track-container', tracks);
-
-	// Get rid of the squat icon
-	$('#squat-img-container').hide();
+	window.peakinTrackPlayer = new PeakinTrackPlayer('peakin-track-container', tracks, keywords);
 }
 
 // Just so people can change it to chest day in the console to listen to the tuuunes :)

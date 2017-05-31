@@ -24,6 +24,16 @@ getParameterByName = function(name) {
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
+fetchPlaylist = function(playlist, callback) {
+    SC.get('/playlists/' + playlist).then(function(p) {
+        var tracks = [];
+        for(var i = 0; i < p.tracks.length; i++) {
+            tracks.push(p.tracks[i].id);
+        }
+        callback(tracks);
+    });
+};
+
 Array.prototype.max = function() {
   return Math.max.apply(null, this);
 };

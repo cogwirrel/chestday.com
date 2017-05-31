@@ -1,28 +1,32 @@
 $(document).ready(function() {
 
-	var tracks = [];
-
-	var trackParam = getParameterByName("track");
-
-	for(var i = 0; i < days.length; i++) {
-		if(days[i].title == "Chest Day") {
-			tracks = days[i].tracks;
-		}
-	}
-
-	// Attach peakinTrackPlayer to window ( skip button uses this global reference :/ )
-	window.peakinTrackPlayer = new PeakinTrackPlayer('peakin-track-container', tracks, function() {
-		if(trackParam !== "") {
-			window.peakinTrackPlayer.switchTracks(trackParam);
-		}
-		
-		$('#headphone-button').click();
+	// Initialize soundcloud!
+	SC.initialize({
+		client_id: '8eaeb95d4bf84d06f0001a18f55695a2'
 	});
+
+	setTimeout(function() {
+		var _with = getParameterByName('with');
+	
+		if(_with !== "") {
+			startPlayer([_with]);
+		} else {
+			startPlayer(['pop', 'rock', 'electro']);
+		}
+	}, 300);
 });
 
+startPlayer = function(keywords) {
+	// Attach peakinTrackPlayer to window ( skip button uses this global reference :) )
+	window.peakinTrackPlayer = new PeakinTrackPlayer('peakin-track-container', null, keywords, function() {
+		$('#headphone-button').click();
+	});
+};
+
 setTrack = function() {
-	var track = $('#track-input').val();
-	if(!isNaN(track)) {
-		window.peakinTrackPlayer.switchTracks(track);
+	var keywords = $('#track-input').val();
+	console.log("Looking for: " + keywords);
+	if(keywords) {
+		window.peakinTrackPlayer.randomPlaylist(keywords);
 	}
 }
