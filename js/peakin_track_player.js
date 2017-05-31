@@ -165,8 +165,9 @@ PeakinTrackPlayer.prototype.switchTracks = function(newTrackId) {
 PeakinTrackPlayer.prototype.playCurrentTrack = function() {
 	var that = this;
 	if(this.currentTrack) {
-		this.currentTrack.play({
-			'onfinish': function() {that.next();}
+		this.currentTrack.play();
+		this.currentTrack.on('finish', function() {
+			that.next();
 		});
 		this.updateNowPlaying();
 	} else {
@@ -224,7 +225,7 @@ PeakinTrackPlayer.prototype.skipToDrop = function() {
 	// Skip to the location where a drop has been detected
 	var that = this;
 	this.findDrop(this.trackMetadata, function(drop) {
-		that.currentTrack.setPosition(drop);
+		that.currentTrack.seek(drop);
 		console.log("Skipped to " + drop + "ms");
 
 		// Easter egg!
@@ -267,7 +268,7 @@ PeakinTrackPlayer.prototype.findDrop = function(trackMetadata, callback) {
 		var foundBackupDrop = false;
 
 		// We start from the position in the waveform corresponding to our current position (millis) in the track
-		var startIndex = Math.ceil(that.currentTrack.position / millisPerWaveformChunk);
+		var startIndex = Math.ceil(that.currentTrack.currentTime() / millisPerWaveformChunk);
 
 		// Loop through the waveform
 		for(var i = startIndex; i < data.length - 3*n; i++) {
